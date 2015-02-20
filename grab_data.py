@@ -1,3 +1,5 @@
+__author__ = "Christian Dansereau"
+__copyright__ = "Copyright 2015, Christian Dansereau"
 import urllib
 import time
 

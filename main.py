@@ -1,3 +1,6 @@
+__author__ = "Christian Dansereau"
+__copyright__ = "Copyright 2015, Christian Dansereau"
+
 import manip
 from manip import show as show
 from manip import showbw as showbw
@@ -14,7 +17,7 @@ def detect(img_id):
     imrgb = manip.load_image(img_id)
     im = imrgb.mean(2)
     mask = fe.bg_mask(im-bg)
-    clean_img = fe.clean_border(mask)
+    clean_img = fe.clean_mask(mask)
     label_image = fe.label(mask)
     borders = np.logical_xor(mask, clean_img)
     label_image[borders] = -1
@@ -24,10 +27,11 @@ def detect(img_id):
 
     regions = fe.get_metrics(label_image)
     fe.show_prop (imrgb,regions)
+    return im, mask, label_image, image_label_overlay
 
 if __name__ == "__main__":
     bg = getbg()
-    detect(5)
+    detect(34)
 
 
 

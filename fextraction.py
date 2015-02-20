@@ -1,3 +1,6 @@
+__author__ = "Christian Dansereau"
+__copyright__ = "Copyright 2015, Christian Dansereau"
+
 from skimage import io
 from skimage.filter import threshold_otsu
 import matplotlib.pyplot as plt 
@@ -18,7 +21,7 @@ def bg_mask(image):
     bw = binary_erosion(bw,square(7))
     return bw
 
-def clean_border(image):
+def clean_mask(image):
     # remove artifacts connected to image border
     cleared = image.copy()
     clear_border(cleared)

@@ -1,3 +1,5 @@
+__author__ = "Christian Dansereau"
+__copyright__ = "Copyright 2015, Christian Dansereau"
 from skimage import io
 from skimage.filter import threshold_otsu
 import matplotlib.pyplot as plt 
@@ -5,7 +7,8 @@ import matplotlib.image as mpimg
 import numpy as np
 from skimage.morphology import label, closing, square
 
-source_path = "/home/cdansereau/git/object_recognition/set2/";
+#source_path = "/home/cdansereau/git/vision_or/set2/"
+source_path = "/Users/christian/git/vision_or/set2/"
 
 def load_images(n_img = 30):
     for x in range(10, n_img+10):
