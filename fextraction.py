@@ -2,7 +2,7 @@ __author__ = "Christian Dansereau"
 __copyright__ = "Copyright 2015, Christian Dansereau"
 
 from skimage import io
-from skimage.filter import threshold_otsu
+from skimage.filter import threshold_otsu, threshold_adaptive
 import matplotlib.pyplot as plt 
 import matplotlib.image as mpimg
 import numpy as np
@@ -16,10 +16,15 @@ from skimage.transform import rotate
 
 def bg_mask(image):
     # apply threshold
-    thresh = threshold_otsu(image)
-    bw = closing(image > thresh, square(3))
-    bw = binary_erosion(bw,square(7))
+    #thresh = threshold_otsu(image)
+    thresh = threshold_adaptive((image),200,offset=25)
+    #bw = closing(image > thresh, square(3))
+    bw = closing(thresh, square(2))
+    bw = binary_erosion(bw,square(3))
     return bw
+
+def erode(image):
+    return binary_erosion(image,square(3))
 
 def clean_mask(image):
     # remove artifacts connected to image border
