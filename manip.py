@@ -6,9 +6,11 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
 from skimage.morphology import label, closing, square
+import os
 
 #source_path = "/home/cdansereau/git/vision_or/set2/"
-source_path = "/Users/christian/git/vision_or/set2/"
+#source_path = "/Users/christian/git/vision_or/set2/"
+source_path = os.path.abspath("./set2") + "/"
 
 def load_images(n_img = 30):
     for x in range(10, n_img+10):
