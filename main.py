@@ -20,6 +20,7 @@ def detect(img_id):
     mask = fe.erode(mask_raw)
     clean_img = fe.clean_mask(mask)
     label_image = fe.label(mask)
+    label_image = fe.remove_small_objects(label_image,min_size=100)
     borders = np.logical_xor(mask, clean_img)
     label_image[borders] = -1
 
@@ -28,7 +29,7 @@ def detect(img_id):
 
     regions = fe.get_metrics(label_image)
     fe.show_prop (imrgb,regions)
-    return im, mask, label_image, image_label_overlay
+    return im, mask, mask_raw, label_image, image_label_overlay
 
 if __name__ == "__main__":
     bg = getbg()

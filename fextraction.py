@@ -6,7 +6,7 @@ from skimage.filter import threshold_otsu, threshold_adaptive
 import matplotlib.pyplot as plt 
 import matplotlib.image as mpimg
 import numpy as np
-from skimage.morphology import label, closing, square, binary_erosion
+from skimage.morphology import label, closing, square, binary_erosion, binary_dilation, binary_closing, remove_small_objects
 from skimage.measure import label
 from skimage.segmentation import clear_border
 from skimage.measure import regionprops
@@ -19,8 +19,9 @@ def bg_mask(image):
     #thresh = threshold_otsu(image)
     thresh = threshold_adaptive((image),200,offset=25)
     #bw = closing(image > thresh, square(3))
-    bw = closing(thresh, square(2))
-    bw = binary_erosion(bw,square(3))
+    bw = thresh == False;
+    bw = binary_closing(bw, square(2))
+    bw = binary_dilation(bw,square(4))
     return bw
 
 def erode(image):
