@@ -16,7 +16,8 @@ def getbg():
 def detect(img_id):
     imrgb = manip.load_image(img_id)
     im = imrgb.mean(2)
-    mask = fe.bg_mask(im-bg)
+    mask_raw = fe.bg_mask(im-bg)
+    mask = fe.erode(mask_raw)
     clean_img = fe.clean_mask(mask)
     label_image = fe.label(mask)
     borders = np.logical_xor(mask, clean_img)
