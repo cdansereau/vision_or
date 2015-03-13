@@ -7,11 +7,12 @@ import matplotlib.image as mpimg
 import numpy as np
 from skimage.morphology import label, closing, square
 import os
+from PIL import Image
 
 #source_path = "/home/cdansereau/git/vision_or/set2/"
 #source_path = "/Users/christian/git/vision_or/set2/"
 source_path = os.path.abspath("./set2") + "/"
-
+output_path = os.path.abspath("./outset2") + "/"
 def load_images(n_img = 30):
     for x in range(10, n_img+10):
         file_name =  "0" + str(x) + ".jpg";
@@ -44,6 +45,12 @@ def overlay(seg,origin):
 def show_overlay(seg,origin):
     out = overlay(seg,origin)
     show(out)
+
+def save(img,item_id,n_image):
+    im = Image.fromarray(img)
+    file_name =  "0" + str(n_image+10) + '_' + item_id + ".jpg";
+    im.save(output_path + file_name)
+    
 
 if __name__ == "__main__":
     im = load_image(5).mean(2)

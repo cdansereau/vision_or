@@ -13,19 +13,35 @@ from skimage.measure import regionprops
 import math
 from skimage.draw import ellipse
 from skimage.transform import rotate
+from skimage.color import label2rgb
+import manip
+
+def getbg():
+    images = manip.load_images(30)
+    bg = np.median(images,2)
+    return bg
 
 def bg_mask(image):
     # apply threshold
     #thresh = threshold_otsu(image)
-    thresh = threshold_adaptive((image),200,offset=25)
+    thresh = threshold_adaptive((image),200,offset=40)
+    #thresh = np.abs(image)>(5*np.abs(image).mean())
     #bw = closing(image > thresh, square(3))
     bw = thresh == False;
     bw = binary_closing(bw, square(2))
     bw = binary_dilation(bw,square(4))
     return bw
 
-def erode(image):
-    return binary_erosion(image,square(3))
+def smooth_vol(image):
+    image = binary_dilation(image,square(10))
+    image[:,(0,-1)] = np.zeros(image[:,(0,-1)].shape)
+    image[(0,-1),:] = np.zeros(image[(0,-1),:].shape) 
+    image = binary_erosion(image,square(10))
+    
+    image = label(image) 
+    image = remove_small_objects(image,min_size=100)
+    image = image > 0
+    return image
 
 def clean_mask(image):
     # remove artifacts connected to image border
@@ -61,11 +77,61 @@ def show_prop(image,regions):
     ax.axis((0, image.shape[1], image.shape[0], 0))
     plt.show()
 
+def show_prop_2class(image,regions,r_class):
+    fig, ax = plt.subplots()
+    ax.imshow(image)
+
+    for idx in range(0,len(regions)):
+        props = regions[idx]
+        y0, x0 = props.centroid
+        orientation = props.orientation
+        x1 = x0 + math.cos(orientation) * 0.5 * props.major_axis_length
+        y1 = y0 - math.sin(orientation) * 0.5 * props.major_axis_length
+        x2 = x0 - math.sin(orientation) * 0.5 * props.minor_axis_length
+        y2 = y0 - math.cos(orientation) * 0.5 * props.minor_axis_length
+
+        #ax.plot((x0, x1), (y0, y1), '-r', linewidth=1.5)
+        #ax.plot((x0, x2), (y0, y2), '-r', linewidth=1.5)
+        #ax.plot(x0, y0, '.g', markersize=10)
+
+        minr, minc, maxr, maxc = props.bbox
+        bx = (minc, maxc, maxc, minc, minc)
+        by = (minr, minr, maxr, maxr, minr)
+        if r_class[idx] == 1:
+            ax.plot(bx, by, '-r', linewidth=1)
+        else:
+            ax.plot(bx, by, '-y', linewidth=1)
+    
+        ax.axis((0, image.shape[1], image.shape[0], 0))
+    plt.show()
 
 def labels(image):
     # apply labels
     classif = label(image)
     return classif
+
+def detect(imrgb, bg):
+    im = imrgb.mean(2)
+    mask = bg_mask((im-bg))
+    #mask = erode(mask_raw)
+    clean_img = clean_mask(mask)
+    label_image = label(mask)
+    label_image = remove_small_objects(label_image,min_size=100)
+    # last dilation
+    mask = label_image > 0
+    mask = smooth_vol(mask)
+    mask = smooth_vol(mask)
+    mask = smooth_vol(mask)
+    label_image = label(mask)
+    label_image = remove_small_objects(label_image,min_size=100)
+    #borders = np.logical_xor(mask, mask_raw)
+    background_idx = label_image == 0
+    label_image[background_idx] = -1
+
+    # Overlay the segmentation on the original image
+    image_label_overlay = label2rgb(label_image, image=imrgb)
+    regions = get_metrics(label_image)
+    return image_label_overlay,label_image,regions 
 
 if __name__ == "__main__":
     

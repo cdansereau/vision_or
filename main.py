@@ -7,33 +7,29 @@ from manip import showbw as showbw
 import fextraction as fe
 import numpy as np
 from skimage.color import label2rgb
-
-def getbg():
-    images = manip.load_images(30)
-    bg = np.median(images,2)
-    return bg
+import cPickle as pickle
 
 def detect(img_id):
     imrgb = manip.load_image(img_id)
-    im = imrgb.mean(2)
-    mask_raw = fe.bg_mask(im-bg)
-    mask = fe.erode(mask_raw)
-    clean_img = fe.clean_mask(mask)
-    label_image = fe.label(mask)
-    label_image = fe.remove_small_objects(label_image,min_size=100)
-    borders = np.logical_xor(mask, clean_img)
-    label_image[borders] = -1
-
-    # Overlay the segmentation on the original image
-    image_label_overlay = label2rgb(label_image, image=imrgb)
-
-    regions = fe.get_metrics(label_image)
+    imrgb,regions = fe.detect(imrgb,bg)
     fe.show_prop (imrgb,regions)
-    return im, mask, mask_raw, label_image, image_label_overlay
+    return imrgb,regions
+
+def extract_feature():
+    bg = fe.getbg()
+    features = list()
+    for i in range(10,159):
+        im = manip.load_image(i)
+        imrgb,labels,regions = fe.detect(im,bg)
+        features.append(labels)
+     
+    # Saving the objects:
+    with open('features.pkl', 'w') as f:
+        pickle.dump(features, f)
+
 
 if __name__ == "__main__":
-    bg = getbg()
-    detect(34)
-
-
+    #bg = fe.getbg()
+    #imrgb,regions = detect(34)
+    extract_feature()
 
