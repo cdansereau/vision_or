@@ -33,11 +33,11 @@ def bg_mask(image):
     return bw
 
 def smooth_vol(image):
-    image = binary_dilation(image,square(70))
+    image = binary_dilation(image,square(10))
     #put the border at zero
     image[:,(0,-1)] = np.zeros(image[:,(0,-1)].shape)
     image[(0,-1),:] = np.zeros(image[(0,-1),:].shape) 
-    image = binary_erosion(image,square(70))
+    image = binary_erosion(image,square(10))
     
     image = label(image) 
     image = remove_small_objects(image,min_size=100)
@@ -114,11 +114,16 @@ def show_prop_2class_track(image,regions,r_class,trackingpoints):
     for dotidx in range(0,len(list_dots[0])):
         x = list_dots[0][dotidx]
         y = list_dots[1][dotidx]
+        
         if trackingpoints[x,y] == 1:
             ax.plot(y, x, '.m', markersize=10)
+        elif trackingpoints[x,y] == 2:
+            ax.plot(y, x, '.b', markersize=10)
+        elif trackingpoints[x,y] == 3:
+            ax.plot(y, x, '.g', markersize=10)
         else:
             ax.plot(y, x, '.c', markersize=10)
-
+        
         ax.axis((0, image.shape[1], image.shape[0], 0))
 
     for idx in range(0,len(regions)):
