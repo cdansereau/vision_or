@@ -33,10 +33,11 @@ def bg_mask(image):
     return bw
 
 def smooth_vol(image):
-    image = binary_dilation(image,square(10))
+    image = binary_dilation(image,square(70))
+    #put the border at zero
     image[:,(0,-1)] = np.zeros(image[:,(0,-1)].shape)
     image[(0,-1),:] = np.zeros(image[(0,-1),:].shape) 
-    image = binary_erosion(image,square(10))
+    image = binary_erosion(image,square(70))
     
     image = label(image) 
     image = remove_small_objects(image,min_size=100)
@@ -105,6 +106,46 @@ def show_prop_2class(image,regions,r_class):
         ax.axis((0, image.shape[1], image.shape[0], 0))
     plt.show()
 
+def show_prop_2class_track(image,regions,r_class,trackingpoints):
+    fig, ax = plt.subplots()
+    ax.imshow(image)
+
+    list_dots = np.nonzero(trackingpoints>0)
+    for dotidx in range(0,len(list_dots[0])):
+        x = list_dots[0][dotidx]
+        y = list_dots[1][dotidx]
+        if trackingpoints[x,y] == 1:
+            ax.plot(y, x, '.m', markersize=10)
+        else:
+            ax.plot(y, x, '.c', markersize=10)
+
+        ax.axis((0, image.shape[1], image.shape[0], 0))
+
+    for idx in range(0,len(regions)):
+        props = regions[idx]
+        y0, x0 = props.centroid
+        orientation = props.orientation
+        x1 = x0 + math.cos(orientation) * 0.5 * props.major_axis_length
+        y1 = y0 - math.sin(orientation) * 0.5 * props.major_axis_length
+        x2 = x0 - math.sin(orientation) * 0.5 * props.minor_axis_length
+        y2 = y0 - math.cos(orientation) * 0.5 * props.minor_axis_length
+
+        #ax.plot((x0, x1), (y0, y1), '-r', linewidth=1.5)
+        #ax.plot((x0, x2), (y0, y2), '-r', linewidth=1.5)
+        #ax.plot(x0, y0, '.g', markersize=10)
+
+        minr, minc, maxr, maxc = props.bbox
+        bx = (minc, maxc, maxc, minc, minc)
+        by = (minr, minr, maxr, maxr, minr)
+        if r_class[idx] == 1:
+            ax.plot(bx, by, '-r', linewidth=1)
+        else:
+            ax.plot(bx, by, '-y', linewidth=1)
+
+        ax.axis((0, image.shape[1], image.shape[0], 0))
+    plt.show()
+
+
 def labels(image):
     # apply labels
     classif = label(image)
@@ -119,6 +160,7 @@ def detect(imrgb, bg):
     label_image = remove_small_objects(label_image,min_size=100)
     # last dilation
     mask = label_image > 0
+    mask = smooth_vol(mask)
     mask = smooth_vol(mask)
     mask = smooth_vol(mask)
     mask = smooth_vol(mask)
