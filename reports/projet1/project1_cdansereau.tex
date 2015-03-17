@@ -713,7 +713,7 @@ The project was realized in python with the following libraries: scipy \cite{sci
 
 \subsection{Identification of objects in motion}
 
-The dataset used for classification was composed of 150 images (webcam at \url{https://www.cs.dal.ca/cams/university.jpg}) of those we use 30 images to tune the parameters of the feature extraction algorithm. The median of the first 30 images was used to compute the background. Algorithm \ref{algo_extract_labels} was use to extract the moving objects from the background and remove artefact of the image. We found that repeting the Algoritm \ref{algo_mask_correction} multiple time was improving the mask substantially in order to remove small objects fused the relevant objects and make more consistent blobs for object.
+The dataset used for classification was composed of 150 images (webcam at \url{https://www.cs.dal.ca/cams/university.jpg}) of those we use 30 images to tune the parameters of the feature extraction algorithm. The median of the first 30 images was used to compute the background. Algorithm \ref{algo_extract_labels} was use to extract the moving objects from the background and remove artefact of the image. We found that repeting the Algoritm \ref{algo_mask_correction} multiple time was improving the mask substantially in order to remove small objects and fuse the relevant ones, resulting in more consistent blobs for each object.
 
 \begin{algorithm}[h]
  \KwData{rgbImg, background, }
@@ -753,7 +753,7 @@ The dataset used for classification was composed of 150 images (webcam at \url{h
 
 \subsection{classification}
 
-The features used in the classification are based on resized RGB images 32x32 pixels extracted from the the centroid of the detected object. Two example of the resulting images from Algorithm \ref{algo_features} can be seen in Figure \ref{fig_features_classif}.
+The features used in the classification are based on resized RGB (Red Green Blue) images 32x32 pixels extracted from the the centroid of the detected object preserving the structure of the image independently of its size and position in the scene. Two examples of the resulting images from Algorithm \ref{algo_features} can be seen in Figure \ref{fig_features_classif}.
 
 \begin{algorithm}[!h]
  \KwData{originalImage, }
@@ -774,28 +774,43 @@ The features used in the classification are based on resized RGB images 32x32 pi
     \label{fig_features_classif}%
 \end{figure}
 
-We choose to use SVM (Support Vector Machine) \cite{Cortes1995} as our classifier since it's a fast and robust state of the art classification algorithm. Some basic preprocessing was perform on the patch image of 32x32 pixels. We first vectorized the RGB images and removed the mean and variance from each of the features.
+In term of the features used for the classification we evaluated the performance of various features 32x32 RGB, 32x32 gray-scale and 16x16 RGB the performance are marginally different we therefore decided to go with the 32x32 gray-scale features resulting in a 1024 features after gray-scale conversion due to the fact that a large patch may capture in some case more relevant information in some case and it appear that the color component do not contribute drastically to the classification.
 
-In order to find the most adapted hyper-parameters (C and Gamma) for our classification problem we choose to use a grid search approach. The grid search and the final classification were evaluated using a stratified cross-validation due to the fact that the number of example available were unbalanced.
+We choose to use SVM (Support Vector Machine) \cite{Cortes1995} as our classifier since it's a fast and robust state of the art classification algorithm with a Gaussian radial basis function kernel (RBF). 
+
+Some basic preprocessing was perform on the patch image of 32x32 pixels. We first vectorized the RGB images and removed the mean and variance from each of the features in an attempt to normalize the data.
+
+
+In order to find the most adapted hyper-parameters (C and Gamma) for our classification problem we choose to use a grid search approach. The grid search parametrised as follow for C ($10^-5$ to $10^2$) and for Gamma ($10^-5$ to $10^3$) The grid search and the final classification were evaluated using a stratified cross-validation due to the unbalanced number of examples available for each class. We also included a parameter in the SVM classifier to account for the unbalance dataset by automatically re-weight each class by the inverse of its frequency.
 
 
 
 \subsection{Tracking}
 
+For the tracking we are using the information from Part 1 to make our decision of tracking. We are using up to two time points in the past to assess if an object belong to a particular tracked trajectory. We first take the tracking label of the previous frame closest to the current object in a radius of 150 pixel around the object, if a second frame is available we compute the angle of the trajectory of the two vectors to see if we are not turning more that $90\deg$ as described in Algorithm \ref{algo_tracking}. The last verification is to make sure that the trackingId is not already attributed to an other object in the current frame, if so we run Algorithm \ref{algo_tracking} with objectT0 and listObjT2 (in the place of listObjT1) removing the already attributed trackingID. This will resolve problem of crossing when two objects are fused together for one frame.
+
 \begin{algorithm}[h]
- \KwData{objects, image, }
- \KwResult{mask of the image with object in motion}
+ \KwData{objectT0, listObjT1, listObjT2}
+ \KwResult{trackingId}
  initialization\;
-  read current\;
-  \eIf{understand}{
-   go to next section\;
-   current section becomes this one\;
-   }{
-   go back to the beginning of current section\;
+ trackingId = listObjT1.maxId()+1
+ smallestDist = Inf\;
+ \While{listObjT1 not empty}{
+  objT1 = listObjT1.nextObj()\;
+  \If{objT1 distance is closest and $< 150$}{
+   \eIf{objT2 is available}{
+   	\If{trajectory using objT2 $< 90\deg$}{
+   	  trackingId = objT1.trackingId()\;   	  
+   	 }
+    }{
+    trackingId = objT1.trackingId()\;
+   }
   }
+ }
  \caption{Tracking objects}
  \label{algo_tracking}
 \end{algorithm}
+
 
 
 \section{Results}
@@ -804,20 +819,22 @@ In order to find the most adapted hyper-parameters (C and Gamma) for our classif
 \begin{figure}[h]
 \centering
 \includegraphics[width=8cm]{feature_extract1.png}
-\caption{Features extraction: the box represent the moving object identification and the some of the feature extracted (angle of the the major/minor axis of the object and centroid).}
+\caption{Features extraction: the bounding box identify the detected moving objects in the scene and some of the feature extracted (angle of the major/minor axis and centroid).}
 \label{fig_fextract}
 \end{figure}
 
-From the 150 images analysed the algorithm was able to identify 238 moving objects (93 cars and 145 pedestrians). Figure \ref{fig_fextract} show the object identified by the algorithm and there respective bounding box. We also include an overlay of the actual object detected, has we can see from the car some areas are not completely covered.
+From the 150 images analysed the algorithm was able to identify 238 moving objects (93 cars and 145 pedestrians). Figure \ref{fig_fextract} show an example of moving objects identified by the algorithm and there respective bounding box. We also include an overlay of the actual object detected, has we can see from the car some areas are not completely covered due mainly to light reflection.
 
 \subsection{Part2: classification}
+
+The best classifier is obtain from the grid search was $C=10^1$ and $Gamma=10^-3$.
 
 We were able to achieve an accuracy of 90\% (+/- 0.18) estimated with a 10 fold cross-validation with stratified test and validation sets. Figure \ref{fig_classif} show an example of the classification in a scene with 3 moving objects 2 pedestrian (in red) and one car (in yellow).
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=8cm]{classif1.png}
-\caption{Classification: the box represent the moving object identification, the color represent the classification result of the object nature (yellow=car, red=pedestrian).}
+\caption{Classification: the bounding box identify the detected moving objects in the scene, the color represent the classification result (yellow=car, red=pedestrian).}
 \label{fig_classif}
 \end{figure}
 
@@ -825,15 +842,16 @@ We were able to achieve an accuracy of 90\% (+/- 0.18) estimated with a 10 fold 
 \begin{figure}[h]
 \centering
 \includegraphics[width=8cm]{tracking1.png}
-\caption{Final tracking result: the box represent the moving object identification, the color represent the classification result of the object nature (yellow=car, red=pedestrian) and the color dots represent the unique path of a particular moving object in the scene.}
+\caption{Final tracking result: the bounding box identification the detected moving objects in the scene, the color represent the classification results (yellow=car, red=pedestrian) and the color dots represent the unique path of a particular moving object in the scene.}
 \label{fig_tracking}
 \end{figure}
 
-Figure \ref{fig_tracking} show the successfully tracking of two moving objects in a scene, in this particular case the two object cross the path and fused at the intersection point but the algorithm was able to overpass this difficulty by looking at previous frames and the angle of the previous trajectories.
+Figure \ref{fig_tracking} show a successful tracking example of two moving objects in a scene, in this particular case the two objects cross the path of each other and fuse at the intersection point but the algorithm was able to overpass this difficulty by looking at previous frames and the angle of the trajectories of each object.
 
 \section{Conclusion}
-This project introduce us to the various problematic than one can face in the context of vision and tracking. We were able to achieve the three requirements of the project namely 1) the identification of mobile object and there features, 2) the classification of the object in two class (pedestrian or a car) and finally 3) the tracking of the object across the scene. We also made our software able to identify a trajectory and be able to resolve interference due to two objects crossing path.
+This project introduce us to the various problematic that one can face in the context of vision and tracking. We were able to achieve the three requirements of the project namely 1) the identification of mobile object and there features, 2) the classification of the object in a two class problem (pedestrian or car) and finally 3) the tracking of the objects across the scene. We also made our software able to identify a trajectory and be able to resolve interference due to two objects crossing path.
 
+An important note relate to the choice of the features for classification, the images use in this project were taken in winter and are not particularly colourful explaining the performance of the 32x32 gray-scale image as equivalent to the RGB one. Event though this choice is acceptable for this particular dataset it will most likely be more appropriate to use a color version for a classifier that would generalized better in other scenery.
 
 
 
