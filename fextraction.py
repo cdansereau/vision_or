@@ -66,14 +66,14 @@ def show_prop(image,regions):
         x2 = x0 - math.sin(orientation) * 0.5 * props.minor_axis_length
         y2 = y0 - math.cos(orientation) * 0.5 * props.minor_axis_length
 
-        ax.plot((x0, x1), (y0, y1), '-r', linewidth=1.5)
-        ax.plot((x0, x2), (y0, y2), '-r', linewidth=1.5)
+        ax.plot((x0, x1), (y0, y1), '-r', linewidth=1)
+        ax.plot((x0, x2), (y0, y2), '-r', linewidth=1)
         ax.plot(x0, y0, '.g', markersize=10)
 
         minr, minc, maxr, maxc = props.bbox
         bx = (minc, maxc, maxc, minc, minc)
         by = (minr, minr, maxr, maxr, minr)
-        ax.plot(bx, by, '-b', linewidth=1.5)
+        ax.plot(bx, by, '-b', linewidth=1)
 
     ax.axis((0, image.shape[1], image.shape[0], 0))
     plt.show()
