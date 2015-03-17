@@ -75,7 +75,7 @@
 
 
 
-
+\usepackage{hyperref}
 
 % Some very useful LaTeX packages include:
 % (uncomment the ones you want to load)
@@ -212,6 +212,7 @@
 % *** SPECIALIZED LIST PACKAGES ***
 %
 %\usepackage{algorithmic}
+\usepackage[]{algorithm2e}
 % algorithmic.sty was written by Peter Williams and Rogerio Brito.
 % This package provides an algorithmic environment fo describing algorithms.
 % You can use the algorithmic environment in-text or within a figure
@@ -303,11 +304,11 @@
 % IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later 
 % (recommended due to many improvements over 1.2) of subfig.sty supports
 % the caption=false option directly:
-%\ifCLASSOPTIONcompsoc
-%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
-%\else
-%  \usepackage[caption=false,font=footnotesize]{subfig}
-%\fi
+\ifCLASSOPTIONcompsoc
+  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\else
+  \usepackage[caption=false,font=footnotesize]{subfig}
+\fi
 %
 % The latest version and documentation can be obtained at:
 % http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
@@ -418,6 +419,7 @@
 % (Unless specifically asked to do so by the journal or conference you plan
 % to submit to, of course. )
 
+\usepackage{graphicx}
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -451,8 +453,8 @@
 % journal papers have the author affiliations above the "Manuscript
 % received ..."  text while in non-compsoc journals this is reversed. Sigh.
 
-\author{Christian~Dansereau,% <-this % stops a space
-\IEEEcompsocitemizethanks{\IEEEcompsocthanksitem M. Dansereau is with the Department
+\author{Christian~Dansereau% <-this % stops a space
+\IEEEcompsocitemizethanks{\IEEEcompsocthanksitem Mr. Dansereau is with the Department
 of Computer science, University of Montreal, Montreal,
 CA.\protect\\
 % note need leading \protect in front of \\ to get a newline within \thanks as
@@ -600,23 +602,26 @@ Vision, Object recognition, IEEE.
 % 
 % Here we have the typical use of a "T" for an initial drop letter
 % and "HIS" in caps to complete the first word.
-\IEEEPARstart{T}{his} project .
+
+
+
+\IEEEPARstart{T}{he} objectives of the projects are the following: 1) identify the objects in motion in a scene and extract some meaningful features. 2) classify the nature of the moving objects namely if they are pedestrians or cars. 3) Be able to track the moving objects and there respective trajectories.
 % You must have at least 2 lines in the paragraph with the drop letter
 % (should never be an issue)
-
-The objectives of the projects are the following: 1) identify the objects in motion in a scene and extract some meaningful features. 2) classify the nature of the moving objects namely if they are pedestrians or cars. 3) Tracking of the moving objects and there respective trajectory.
 
 %\hfill mds
 %\hfill January 11, 2015
 
-\subsection{Subsection Heading Here}
-Subsection text here.
+\subsection{Public code and data}
+The code and data used in this experiment are available on a 
+GitHub repository at the following URL: \url{https://github.com/cdansereau/vision_or}. A IPython Notebook is also provided with most of the figure generation scripts.
+
 
 % needed in second column of first page if using \IEEEpubid
 %\IEEEpubidadjcol
 
-\subsubsection{Subsubsection Heading Here}
-Subsubsection text here.
+%\subsubsection{Subsubsection Heading Here}
+%Subsubsection text here.
 
 
 % An example of a floating figure using the graphicx package.
@@ -632,19 +637,9 @@ Subsubsection text here.
 % option should be used if it is desired that the figures are to be
 % displayed while in draft mode.
 %
-%\begin{figure}[!t]
-%\centering
-%\includegraphics[width=2.5in]{myfigure}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-% via \DeclareGraphicsExtensions.
-%\caption{Simulation Results}
-%\label{fig_sim}
-%\end{figure}
 
-% Note that IEEE typically puts floats only at the top, even when this
-% results in a large percentage of a column being occupied by floats.
-% However, the Computer Society has been known to put floats at the bottom.
+
+
 
 
 % An example of a double column floating figure using two subfigures.
@@ -655,15 +650,22 @@ Subsubsection text here.
 % The subfigure.sty package works much the same way, except \subfigure is
 % used instead of \subfloat.
 %
-%\begin{figure*}[!t]
-%\centerline{\subfloat[Case I]\includegraphics[width=2.5in]{subfigcase1}%
-%\label{fig_first_case}}
-%\hfil
-%\subfloat[Case II]{\includegraphics[width=2.5in]{subfigcase2}%
-%\label{fig_second_case}}}
+%\begin{figure}[!t]
+%\centerline{
+%\subfloat[Case I]
+%\includegraphics[width=2.5in]{015_1.jpg}%
+%\label{fig_first_case}
+%}
+%\vfil
+%\subfloat[Case II]{
+%\includegraphics[width=2.5in]{038_3.jpg}%
+%\label{fig_second_case}
+%}
+%
 %\caption{Simulation results}
 %\label{fig_sim}
-%\end{figure*}
+%}
+%\end{figure}
 %
 % Note that often IEEE papers with subfigures do not employ subfigure
 % captions (using the optional argument to \subfloat), but instead will
@@ -707,11 +709,130 @@ Subsubsection text here.
 
 
 \section{Method}
+The project was realized in python with the following libraries: scipy \cite{scipy}, scikit-learn \cite{scikitlearn}, matplotlib \cite{matplotlib} and scikit-image \cite{scikitimage}. 
 
-The project was realized in python with the following libraries: numpy, scikitlearn, scikit-image
+\subsection{Identification of objects in motion}
+
+The dataset used for classification was composed of 150 images (webcam at \url{https://www.cs.dal.ca/cams/university.jpg}) of those we use 30 images to tune the parameters of the feature extraction algorithm. The median of the first 30 images was used to compute the background. Algorithm \ref{algo_extract_labels} was use to extract the moving objects from the background and remove artefact of the image. We found that repeting the Algoritm \ref{algo_mask_correction} multiple time was improving the mask substantially in order to remove small objects fused the relevant objects and make more consistent blobs for object.
+
+\begin{algorithm}[h]
+ \KwData{rgbImg, background, }
+ \KwResult{imgLabels}
+ 
+ im = mean(rgbImg) \%Grayscale image\;
+ imDif = im - background\;
+ mask = adaptativeThreshold(imDif)\;
+ mask = binaryClosing(mask, square(2))\;
+ mask = binaryDilation(mask, square(4))\;
+ 
+ imgLabels = getLabels(mask)\;
+ imgLabels = removeSmallObj(imgLabels,100)\;
+  \For{i=range(1,5)}{
+   imgLabels = maskCorrection(imgLabels)\;
+   }
+ return imgLabels\;
+ \caption{extractAllLabels}
+ \label{algo_extract_labels}
+\end{algorithm}
+
+\begin{algorithm}[!h]
+ \KwData{imgLabels}
+ \KwResult{imgLabels}
+ mask = $imgLabels>0$
+ binaryDilation(mask, square(10))\;
+ mask = putBorderZero(mask)\;
+ binaryErosion(mask, square(10))\;
+ imgLabels = getLabels(mask)\;
+ imgLabels = removeSmallObj(imgLabels,100)\;
+ return imgLabels\;
+ \caption{maskCorrection}
+ \label{algo_mask_correction}
+\end{algorithm}
+
+
+
+\subsection{classification}
+
+The features used in the classification are based on resized RGB images 32x32 pixels extracted from the the centroid of the detected object. Two example of the resulting images from Algorithm \ref{algo_features} can be seen in Figure \ref{fig_features_classif}.
+
+\begin{algorithm}[!h]
+ \KwData{originalImage, }
+ \KwResult{imagePatch }
+ limg = largest side of originalImage\;
+ sqImage = square image limgXlimg\;
+ imagePatch = resample(sqImage)\;
+ \caption{Features extraction}
+ \label{algo_features}
+\end{algorithm}
+
+\begin{figure}[h]
+    \centering
+    \subfloat[Pedestrian]{{ \includegraphics[width=2.5cm]{015_1.jpg} }}%
+    \qquad
+    \subfloat[Car]{{ \includegraphics[width=2.5cm]{038_3.jpg} }}%
+    \caption{2 features side by side of 32x32 pixels in RGB. a) is a pedestrian and b) a car}%
+    \label{fig_features_classif}%
+\end{figure}
+
+We choose to use SVM (Support Vector Machine) \cite{Cortes1995} as our classifier since it's a fast and robust state of the art classification algorithm. Some basic preprocessing was perform on the patch image of 32x32 pixels. We first vectorized the RGB images and removed the mean and variance from each of the features.
+
+In order to find the most adapted hyper-parameters (C and Gamma) for our classification problem we choose to use a grid search approach. The grid search and the final classification were evaluated using a stratified cross-validation due to the fact that the number of example available were unbalanced.
+
+
+
+\subsection{Tracking}
+
+\begin{algorithm}[h]
+ \KwData{objects, image, }
+ \KwResult{mask of the image with object in motion}
+ initialization\;
+  read current\;
+  \eIf{understand}{
+   go to next section\;
+   current section becomes this one\;
+   }{
+   go back to the beginning of current section\;
+  }
+ \caption{Tracking objects}
+ \label{algo_tracking}
+\end{algorithm}
+
+
 \section{Results}
+
+\subsection{Part1: feature extraction}
+\begin{figure}[h]
+\centering
+\includegraphics[width=8cm]{feature_extract1.png}
+\caption{Features extraction: the box represent the moving object identification and the some of the feature extracted (angle of the the major/minor axis of the object and centroid).}
+\label{fig_fextract}
+\end{figure}
+
+From the 150 images analysed the algorithm was able to identify 238 moving objects (93 cars and 145 pedestrians). Figure \ref{fig_fextract} show the object identified by the algorithm and there respective bounding box. We also include an overlay of the actual object detected, has we can see from the car some areas are not completely covered.
+
+\subsection{Part2: classification}
+
+We were able to achieve an accuracy of 90\% (+/- 0.18) estimated with a 10 fold cross-validation with stratified test and validation sets. Figure \ref{fig_classif} show an example of the classification in a scene with 3 moving objects 2 pedestrian (in red) and one car (in yellow).
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=8cm]{classif1.png}
+\caption{Classification: the box represent the moving object identification, the color represent the classification result of the object nature (yellow=car, red=pedestrian).}
+\label{fig_classif}
+\end{figure}
+
+\subsection{Part3: tracking}
+\begin{figure}[h]
+\centering
+\includegraphics[width=8cm]{tracking1.png}
+\caption{Final tracking result: the box represent the moving object identification, the color represent the classification result of the object nature (yellow=car, red=pedestrian) and the color dots represent the unique path of a particular moving object in the scene.}
+\label{fig_tracking}
+\end{figure}
+
+Figure \ref{fig_tracking} show the successfully tracking of two moving objects in a scene, in this particular case the two object cross the path and fused at the intersection point but the algorithm was able to overpass this difficulty by looking at previous frames and the angle of the previous trajectories.
+
 \section{Conclusion}
-The conclusion goes here.
+This project introduce us to the various problematic than one can face in the context of vision and tracking. We were able to achieve the three requirements of the project namely 1) the identification of mobile object and there features, 2) the classification of the object in two class (pedestrian or a car) and finally 3) the tracking of the object across the scene. We also made our software able to identify a trajectory and be able to resolve interference due to two objects crossing path.
 
 
 
@@ -730,16 +851,16 @@ The conclusion goes here.
 % \subsection or using \label (\appendices by itself
 % starts a section numbered zero.)
 %
-
-
-\appendices
-\section{Proof of the First Zonklar Equation}
-Appendix one text goes here.
-
-% you can choose not to have a title for an appendix
-% if you want by leaving the argument blank
-\section{}
-Appendix two text goes here.
+%
+%
+%\appendices
+%\section{Proof of the First Zonklar Equation}
+%Appendix one text goes here.
+%
+%% you can choose not to have a title for an appendix
+%% if you want by leaving the argument blank
+%\section{}
+%Appendix two text goes here.
 
 %
 %% use section* for acknowledgement
@@ -752,7 +873,7 @@ Appendix two text goes here.
 %\fi
 
 
-The authors would like to thank...
+%The authors would like to thank...
 
 
 % Can use something like this to put references on a page
@@ -778,21 +899,37 @@ The authors would like to thank...
 % http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
 % The IEEEtran BibTeX style support page is at:
 % http://www.michaelshell.org/tex/ieeetran/bibtex/
-%\bibliographystyle{IEEEtran}
+\bibliographystyle{IEEEtran}
 %
 %% argument is your BibTeX string definitions and bibliography database(s)
-%\bibliography{IEEEabrv,vision}
+\bibliography{IEEEabrv,vision}
 %
 % <OR> manually copy in the resultant .bbl file
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
 
-\begin{thebibliography}{1}
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-
-\end{thebibliography}
+%\begin{thebibliography}{1}
+%\bibitem{IEEEhowto:kopka}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+%
+%\bibitem{numpy}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+%
+%\bibitem{scikit-learn}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+%  
+%\bibitem{scikit-image}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+%
+%\bibitem{matplotlib}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+%
+%\end{thebibliography}
 
 
 % biography section
