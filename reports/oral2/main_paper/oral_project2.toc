@@ -1,0 +1,4 @@
+\beamer@endinputifotherversion {3.33pt}
+\select@language {french}
+\beamer@sectionintoc {1}{Contexte g\IeC {\'e}n\IeC {\'e}ral}{3}{0}{1}
+\beamer@sectionintoc {2}{Optimisation des \IeC {\'e}tapes de pr\IeC {\'e}traitement}{5}{0}{2}

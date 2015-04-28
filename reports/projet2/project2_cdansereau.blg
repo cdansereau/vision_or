@@ -1,0 +1,61 @@
+This is BibTeX, Version 0.99d (TeX Live 2014)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: project2_cdansereau.aux
+The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: IEEEabrv.bib
+Database file #2: vision.bib
+Database file #3: cdansereau.bib
+-- IEEEtran.bst version 1.12 (2007/01/11) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty journal in scipy
+Warning--empty journal in Bellec2010a
+
+Done.
+You've used 16 entries,
+            4024 wiz_defined-function locations,
+            1309 strings with 18531 characters,
+and the built_in function-call counts, 14897 in all, are:
+= -- 1242
+> -- 413
+< -- 140
++ -- 228
+- -- 74
+* -- 804
+:= -- 2268
+add.period$ -- 32
+call.type$ -- 16
+change.case$ -- 16
+chr.to.int$ -- 312
+cite$ -- 18
+duplicate$ -- 1004
+empty$ -- 1024
+format.name$ -- 88
+if$ -- 3376
+int.to.chr$ -- 0
+int.to.str$ -- 16
+missing$ -- 181
+newline$ -- 95
+num.names$ -- 16
+pop$ -- 365
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 1124
+stack$ -- 0
+substring$ -- 747
+swap$ -- 930
+text.length$ -- 36
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 16
+warning$ -- 2
+while$ -- 66
+width$ -- 18
+write$ -- 222
+(There were 2 warnings)

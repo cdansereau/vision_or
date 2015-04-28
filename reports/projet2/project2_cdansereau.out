@@ -1,0 +1,20 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Objectives}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Public code and data}{section.1}% 3
+\BOOKMARK [1][-]{section.2}{Method}{}% 4
+\BOOKMARK [2][-]{subsection.2.1}{Dataset}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Preprocessing and feature extraction}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.3}{Calibrating the problem}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.4}{Preprocessing and confounds regression}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.5}{Optimal functional scale}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.6}{Multiscale bagging predictions}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.7}{I-Relief margin optimization}{section.2}% 11
+\BOOKMARK [1][-]{section.3}{Results}{}% 12
+\BOOKMARK [2][-]{subsection.3.1}{Calibrating the problem}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.2}{Normalization and confound variables}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.3}{Optimal scale}{section.3}% 15
+\BOOKMARK [2][-]{subsection.3.4}{Multiscale}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.5}{I-Relief}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.6}{Summary}{section.3}% 18
+\BOOKMARK [1][-]{section.4}{Discussion and Conclusion}{}% 19
+\BOOKMARK [1][-]{section*.1}{References}{}% 20
