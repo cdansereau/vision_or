@@ -21,11 +21,19 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{Cortes1995}
+\bibitem{Sporns2005}
 \BIBentryALTinterwordspacing
-C.~Cortes and V.~Vapnik, ``{Support-vector networks},'' \emph{Machine
-  Learning}, vol.~20, no.~3, pp. 273--297, Sep. 1995. [Online]. Available:
-  \url{http://dx.doi.org/10.1007/BF00994018}
+O.~Sporns, G.~Tononi, and R.~K\"{o}tter, ``{The human connectome: A structural
+  description of the human brain.}'' \emph{PLoS computational biology}, vol.~1,
+  no.~4, pp. e42+, Sep. 2005. [Online]. Available:
+  \url{http://dx.doi.org/10.1371/journal.pcbi.0010042}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Hagmann2005}
+\BIBentryALTinterwordspacing
+P.~Hagmann, ``\BIBforeignlanguage{eng}{From diffusion {MRI} to brain
+  connectomics},'' Ph.D. dissertation, STI, Lausanne, 2005. [Online].
+  Available: \url{http://vpaa.epfl.ch/page14976.html}
 \BIBentrySTDinterwordspacing
 
 \bibitem{scipy}
@@ -51,14 +59,6 @@ J.~D. Hunter, ``Matplotlib: A 2d graphics environment,'' \emph{Computing In
 P.~Bellec, F.~Carbonell, V.~Perlbarg, and A.~C. Evans, \emph{{A neuroimaging
   analysis kit for Octave and Matlab}}, Accessed August 30th, 2010, 2010.
   [Online]. Available: \url{http://code.google.com/p/niak/}
-\BIBentrySTDinterwordspacing
-
-\bibitem{Rorden2007}
-\BIBentryALTinterwordspacing
-C.~Rorden, H.-O. Karnath, and L.~Bonilha, ``\BIBforeignlanguage{eng}{Improving
-  lesion-symptom mapping.}'' \emph{\BIBforeignlanguage{eng}{J Cogn Neurosci}},
-  vol.~19, no.~7, pp. 1081--1088, Jul 2007. [Online]. Available:
-  \url{http://dx.doi.org/10.1162/jocn.2007.19.7.1081}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Collins1998}

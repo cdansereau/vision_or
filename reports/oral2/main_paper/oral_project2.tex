@@ -105,10 +105,10 @@ Université de Montréal \\ % Your institution for the title page
 \titlepage % Print the title page as the first slide
 \end{frame}
 
-\begin{frame}
-\frametitle{Overview} % Table of contents slide, comment this block out to remove it
-\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
-\end{frame}
+%\begin{frame}
+%\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+%\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+%\end{frame}
 
 %----------------------------------------------------------------------------------------
 %	PRESENTATION SLIDES
@@ -117,7 +117,7 @@ Université de Montréal \\ % Your institution for the title page
 %------------------------------------------------
 \section{Contexte général} 
 %------------------------------------------------
-
+\frame{\sectionpage}
 %------------------------------------------------
 %\subsection{Imagerie par résonance magnétique fonctionnelle} 
 %------------------------------------------------
@@ -145,8 +145,17 @@ Université de Montréal \\ % Your institution for the title page
 %------------------------------------------------
 %\subsection{Prétraitement} 
 %------------------------------------------------
+\begin{frame}
+\frametitle{Preprocessing de l'IRMf}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{../figures/fig_flowchart_fmri_preprocess.png}
+\end{center}
+\end{figure}
+\tiny{\url{http://www.nitrc.org/projects/niak/}}
+\end{frame}
 
-\frame{\sectionpage}
+
 
 \begin{frame}
 \frametitle{Connectome}
@@ -172,6 +181,22 @@ Université de Montréal \\ % Your institution for the title page
 \end{frame}
 
 
+
+
+\frame{
+\frametitle{Jeux de donnée}
+COBRE\footnote{\url{http://fcon_1000.projects.nitrc.org/indi/retro/cobre.html}} (The Center for Biomedical Research Excellence)
+\hfill\break
+Total: 147 sujets
+\begin{itemize}
+\item 72 patients atteints de schizophrénie 
+\item 75 contôles
+\item Donnée phenotypic (age, genre, diagnostique)
+\item âge = 18-65
+\end{itemize}
+\hfill\break
+}
+
 \begin{frame}
 \frametitle{Multiscale connectomes COBRE}
 \begin{figure}
@@ -183,49 +208,105 @@ Université de Montréal \\ % Your institution for the title page
 \end{figure}
 \end{frame}
 
-
-\frame{
-\frametitle{Jeux de données}
-Ce projet provient de l’agrégation de plusieurs jeux de données (5 études différentes)
-\hfill\break
-ADNI2 et 4 études basées à Montréal (total: 313 sujets)
-\begin{itemize}
-\item 126 CNE participants (51M, âge = 57-94)
-\item 133 pMCI (70M, âge = 55-89) 
-\item 54 pDAT (22M, âge = 55-88)
-\end{itemize}
-\hfill\break
-Jeux de données de référence: ``1000 functional connectome project''
-\begin{itemize}
-\item 355 jeunes adultes sains (CNY) (150M, âge = 18-46)
-\end{itemize}
-}
-
-
 %------------------------------------------------
 \section{Méthod}
 %------------------------------------------------
-
-
+\frame{\sectionpage}
 
 \begin{frame}
-\frametitle{Correction des artefacts de mouvement}
-Les mouvements de la tête sont inévitables et présentent l’un des plus grands problèmes en IRMf.
+\frametitle{1) Structure du pipeline d'analyse}
 \hfill\break
 \begin{itemize}
-\item Possibilité de réaligner les déplacements de la tête.
-\item Ne corrige pas les artefacts induits dans le signal par des inhomogénéités du champ magnétique.
-\item Le mouvement est plus important/fréquent chez les populations âgées. 
+\item 10-fold Crossvalidation
+\item Normalisation
+\item Régression des composantes de non-intérêt
+\item Optimisation des parametres du SVM (C et Gamma)
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{2) Bagging multiéchelle}
+\begin{figure}
+\begin{center}
+\includegraphics[scale=1.]{../figures/bagging_multiscale.png}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{3) Sélection d'attribut par maximisation de la marge}
+\begin{figure}
+\begin{center}
+\includegraphics[scale=.5]{../figures/gflip.png}
+\end{center}
+\end{figure}
+\tiny{Gilad-bachrach et al. 2004}
 \end{frame}
 
 %------------------------------------------------
 \section{Résultats}
 %------------------------------------------------
+\frame{\sectionpage}
+
+\begin{frame}
+\frametitle{Calibration}
+\begin{figure}
+\begin{center}
+\includegraphics[scale=.5]{../figures/svc_linear_calibration_scale64x64.png}
+\end{center}
+\end{figure}
+\tiny{SVC linear, C=1 , 64x64 scale}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Optimisation de l'échelle}
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.7]{../figures/acc_scale.png}
+\end{center}
+\tiny{Précision de chaque échelle}
+\label{fig_multiscale_cobre}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sommaire des résultats}
+\begin{table}[h]
+\begin{tabular}{llll}
+\hline
+                                   & Accuracy (\%)  & Std (\%)      & AUC           \\ \hline
+SVC linear calib 64x64             & 64.53          & 6.86          & 0.70          \\
+NC SVC linear 64x64                & 67.07          & 11.08         & 0.75          \\
+Opt NC SVC linear 64x64            & 69.89          & 8.69          & 0.80          \\
+\textbf{Opt NC SVC linear 197x197} & \textbf{79.48} & \textbf{7.50} & \textbf{0.82} \\
+Opt NC SVC rbf 197x197             & 74.61          & 8.75          & 0.80          \\
+\textbf{Opt NC multiscale bagging} & \textbf{80.14} & \textbf{8.36} & \textbf{0.82} \\
+Opt NC I-Relief 197x197            & 73.94          & 7.41          & 0.82          \\ \hline
+\end{tabular}
+\label{tab_results}
+\tiny{Acronyms: calib: calibration, NC: normalized and regression of confounds (age and gender), Opt: optimisation of the classification parameter using nested 10-fold cross-validation. The multiscale bagging was performed on 3 scales (122, 197 and 444) and I-Relief was perform on the scale 197. }
+\end{table}
+\end{frame}
 
 %------------------------------------------------
 \section{Conclusion}
 %------------------------------------------------
+\frame{\sectionpage}
+
+\begin{frame}
+\frametitle{Conclusion}
+
+\hfill\break
+\begin{itemize}
+\item Autre model exploré: SVM with Gaussian kernel, LDA, Adaboost, Bagging, trees et random forest
+\item Bonne performance pour un problème assez difficile (80\%).
+\item Bagging multiéchelle est probablement une meilleure idée.
+\item Généralisation à d'autres jeux de donnée et pathologie.
+\end{itemize}
+\end{frame}
 
 %----------------------------------------------------------------------------------------
 

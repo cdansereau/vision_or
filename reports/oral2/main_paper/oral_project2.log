@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  27 APR 2015 14:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  28 APR 2015 11:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1006,7 +1006,11 @@ Now handling font encoding PD1 ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-(./oral_project2.aux)
+(./oral_project2.aux
+
+LaTeX Warning: Label `fig_multiscale_cobre' multiply defined.
+
+)
 \openout1 = `oral_project2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 102.
@@ -1201,9 +1205,9 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 [1
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-(./oral_project2.toc) [2
+[2
 
-] <../figures/scanner.jpg, id=91, 108.405pt x 72.27pt>
+] <../figures/scanner.jpg, id=97, 108.405pt x 72.27pt>
 File: ../figures/scanner.jpg Graphic file (type jpg)
 
 <use ../figures/scanner.jpg>
@@ -1212,7 +1216,7 @@ Package pdftex.def Info: ../figures/scanner.jpg used on input line 132.
  [3
 
  <../figures/scanner.jpg>]
-<../figures/bold.png, id=118, 433.62pt x 153.2124pt>
+<../figures/bold.png, id=124, 433.62pt x 153.2124pt>
 File: ../figures/bold.png Graphic file (type png)
  <use ../figures/bold.png>
 Package pdftex.def Info: ../figures/bold.png used on input line 143.
@@ -1220,58 +1224,67 @@ Package pdftex.def Info: ../figures/bold.png used on input line 143.
 
 [4
 
- <../figures/bold.png>] [5
+ <../figures/bold.png>]
+<../figures/fig_flowchart_fmri_preprocess.png, id=154, 290.16405pt x 315.8199pt
+>
+File: ../figures/fig_flowchart_fmri_preprocess.png Graphic file (type png)
+ <use ../figures/fig_flowchart_fmri_preprocess.png>
+Package pdftex.def Info: ../figures/fig_flowchart_fmri_preprocess.png used on i
+nput line 156.
+(pdftex.def)             Requested size: 174.09976pt x 189.4934pt.
+LaTeX Font Info:    Try loading font information for U+msa on input line 156.
 
-] [6
-
-]
-<../figures/connectome.png, id=202, 433.62pt x 181.1568pt>
-File: ../figures/connectome.png Graphic file (type png)
-
-<use ../figures/connectome.png>
-Package pdftex.def Info: ../figures/connectome.png used on input line 177.
-(pdftex.def)             Requested size: 346.89647pt x 144.92561pt.
-
-Overfull \hbox (4.60117pt too wide) in paragraph at lines 177--177
- [] 
- []
-
-LaTeX Font Info:    Try loading font information for U+msa on input line 177.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 177.
+LaTeX Font Info:    Try loading font information for U+msb on input line 156.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input 
-line 177.
+line 156.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
-) [7
+) [5
+
+ <../figures/fig_flowchart_fmri_preprocess.png>]
+<../figures/connectome.png, id=184, 433.62pt x 181.1568pt>
+File: ../figures/connectome.png Graphic file (type png)
+
+<use ../figures/connectome.png>
+Package pdftex.def Info: ../figures/connectome.png used on input line 169.
+(pdftex.def)             Requested size: 346.89647pt x 144.92561pt.
+
+Overfull \hbox (4.60117pt too wide) in paragraph at lines 169--169
+ [] 
+ []
+
+[6
 
  <../figures/connectome.png>]
-<../figures/fig_connectome_multiscale.png, id=235, 595.65695pt x 375.04326pt>
+<../figures/fig_connectome_multiscale.png, id=216, 595.65695pt x 375.04326pt>
 File: ../figures/fig_connectome_multiscale.png Graphic file (type png)
 
 <use ../figures/fig_connectome_multiscale.png>
 Package pdftex.def Info: ../figures/fig_connectome_multiscale.png used on input
- line 189.
+ line 181.
 (pdftex.def)             Requested size: 297.82774pt x 187.52116pt.
- [8
+ [7
 
- <../figures/fig_connectome_multiscale.png>]
-<../figures/connectome3x3.png, id=265, 358.33875pt x 242.9075pt>
+ <../figures/fig_connectome_multiscale.png>] [8
+
+]
+<../figures/connectome3x3.png, id=275, 358.33875pt x 242.9075pt>
 File: ../figures/connectome3x3.png Graphic file (type png)
 
 <use ../figures/connectome3x3.png>
-Package pdftex.def Info: ../figures/connectome3x3.png used on input line 201.
+Package pdftex.def Info: ../figures/connectome3x3.png used on input line 209.
 (pdftex.def)             Requested size: 322.50189pt x 218.61472pt.
 
-Overfull \vbox (10.04413pt too high) detected at line 201
+Overfull \vbox (10.04413pt too high) detected at line 209
  []
 
 [9
@@ -1279,6 +1292,59 @@ Overfull \vbox (10.04413pt too high) detected at line 201
  <../figures/connectome3x3.png>] [10
 
 ] [11
+
+]
+<../figures/bagging_multiscale.png, id=358, 174.8934pt x 179.2296pt>
+File: ../figures/bagging_multiscale.png Graphic file (type png)
+
+<use ../figures/bagging_multiscale.png>
+Package pdftex.def Info: ../figures/bagging_multiscale.png used on input line 2
+34.
+(pdftex.def)             Requested size: 174.89297pt x 179.22914pt.
+ [12
+
+ <../figures/bagging_multiscale.png>] <../figures/gflip.png, id=386, 413.545pt 
+x 341.275pt>
+File: ../figures/gflip.png Graphic file (type png)
+
+<use ../figures/gflip.png>
+Package pdftex.def Info: ../figures/gflip.png used on input line 244.
+(pdftex.def)             Requested size: 206.77199pt x 170.63707pt.
+ [13
+
+ <../figures/gflip.png>] [14
+
+]
+<../figures/svc_linear_calibration_scale64x64.png, id=442, 592.2125pt x 282.053
+76pt>
+File: ../figures/svc_linear_calibration_scale64x64.png Graphic file (type png)
+ <use ../figures/svc_linear_calibration_scale64x64.png>
+Package pdftex.def Info: ../figures/svc_linear_calibration_scale64x64.png used 
+on input line 259.
+(pdftex.def)             Requested size: 296.10551pt x 141.02652pt.
+ [15
+
+ <../figures/svc_linear_calibration_scale64x64.png>]
+<../figures/acc_scale.png, id=471, 383.4325pt x 266.9975pt>
+File: ../figures/acc_scale.png Graphic file (type png)
+
+<use ../figures/acc_scale.png>
+Package pdftex.def Info: ../figures/acc_scale.png used on input line 272.
+(pdftex.def)             Requested size: 268.40092pt x 186.89696pt.
+pdfTeX warning (ext4): destination with the same identifier (name{fig_multiscal
+e_cobre}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.272 \end{frame}
+                  [16
+
+ <../figures/acc_scale.png>] [17
+
+] [18
+
+] [19
+
+] [20
 
 ]
 \tf@nav=\write6
@@ -1290,38 +1356,44 @@ Overfull \vbox (10.04413pt too high) detected at line 201
 \tf@snm=\write8
 \openout8 = `oral_project2.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 231.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 231.
- (./oral_project2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 231.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 231.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 320.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 320.
+
+(./oral_project2.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 320.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 320.
 Package rerunfilecheck Info: File `oral_project2.out' has not changed.
-(rerunfilecheck)             Checksum: C72B595020AB336139E968A4153C310D;138.
+(rerunfilecheck)             Checksum: 0D3CBD028B0789D11A9B960115CBA224;193.
 
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 231.
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 320.
  ) 
 Here is how much of TeX's memory you used:
- 18022 strings out of 493117
- 341787 string characters out of 6135433
- 417925 words of memory out of 5000000
- 21009 multiletter control sequences out of 15000+600000
- 10569 words of font info for 39 fonts, out of 8000000 for 9000
+ 18089 strings out of 493117
+ 342567 string characters out of 6135433
+ 418921 words of memory out of 5000000
+ 21046 multiletter control sequences out of 15000+600000
+ 14318 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 56i,16n,60p,414b,752s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,16n,57p,414b,567s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb
 ></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb>
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb><
 /usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></u
 sr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr
-/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on oral_project2.pdf (11 pages, 1687424 bytes).
+/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></us
+r/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/
+local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on oral_project2.pdf (20 pages, 1902979 bytes).
 PDF statistics:
- 375 PDF objects out of 1000 (max. 8388607)
- 331 compressed objects within 4 object streams
- 28 named destinations out of 1000 (max. 500000)
- 114 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 646 PDF objects out of 1000 (max. 8388607)
+ 581 compressed objects within 6 object streams
+ 49 named destinations out of 1000 (max. 500000)
+ 149 words of extra memory for PDF output out of 10000 (max. 10000000)
 

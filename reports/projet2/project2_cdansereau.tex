@@ -429,7 +429,7 @@
 %
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
-\title{Schizophrenia classification using \\multi-scale functional connectivity }
+\title{Schizophrenia classification using \\multiscale functional connectivity }
 %
 %
 % author names and IEEE memberships
@@ -522,7 +522,7 @@ E-mail: christiandansereau@gmail.com}% <-this % stops a space
 \IEEEcompsoctitleabstractindextext{%
 \begin{abstract}
 %\boldmath
-The objective of Project 2 is to explore if feature selection based on a margin maximisation criteria would improve the performance of a classification model applied on neuro-imaging data. During the project we have explored normalization procedure and the proper pipeline to identify the right model and parameters.
+In this paper we explore the classification of two clinical population namely a control population and subject with Schizophrenia. We want to explore the difficulty of the classification task and how it would apply in the context of functional imaging. During the project we have explored normalization procedure and the proper pipeline to identify the right model and parameters. We propose two new pipelines on top of the more standard ones. A multiscale bagging method to take in account the functional information at different level of abstraction and finally we explore if feature selection based on a margin maximisation criteria would improve the performance of a classification model applied on neuro-imaging data.
 
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
@@ -535,7 +535,7 @@ The objective of Project 2 is to explore if feature selection based on a margin 
 
 % Note that keywords are not normally used for peerreview papers.
 \begin{IEEEkeywords}
-Schizophrenia, classification, multiscale, feature selection.
+Schizophrenia, classification, multiscale, feature selection, SVM, margin optimization.
 \end{IEEEkeywords}}
 
 
@@ -606,7 +606,7 @@ Schizophrenia, classification, multiscale, feature selection.
 
 
 
-\IEEEPARstart{T}{he} use of machine learning algorithm in the context of neuroimaging is new and pose multiple constrains, like in any other biomedical dataset we are faced with a large number of features and a small number of examples (the number of subjects). Support vector machine (SVM) \cite{Cortes1995} are attempting to find an hyperplane that will maximize the margin between two classes. To do so SVM use support vectors that are basically representative example. In this paper we are attempting to discriminate two population control subject and patient with Schizophrenia. In order to do so we are recording the brain activity of each individual using a functional magnetic resonance imaging (fMRI) machine. This modality give use a 3D snapshot of the brain activity every 2.5 second. A popular metric to evaluate brain activity pathern is to use connectivity metrics like the temporal correlation of every pair of grey matter region in the brain.
+\IEEEPARstart{T}{he} use of machine learning algorithm in the context of neuroimaging is new and pose multiple constrains, like in any other biomedical dataset we are faced with a large number of features and a small number of examples (the number of subjects). In this paper we are attempting to discriminate two population control subject and patient with Schizophrenia. In order to do so we are recording the brain activity of each individual using a functional magnetic resonance imaging (fMRI) machine. This modality give use a 3D snapshot of the brain activity every 2.5 second. A popular metric to evaluate brain activity patterns is to use connectivity metrics like the temporal correlation of every pair of grey matter region in the brain. These correlation can be represented in a symmetric connectivity matrix called a connectome first introduce by \cite{Sporns2005, Hagmann2005}. Since the connectome is a symmetric matrix we can convert the matrix in a vector and use those connections has the features for subsequent analysis.
 
 % You must have at least 2 lines in the paragraph with the drop letter
 % (should never be an issue)
@@ -615,11 +615,11 @@ Schizophrenia, classification, multiscale, feature selection.
 %\hfill January 11, 2015
 
 \subsection{Objectives}
-The objectives of the projects are the following: 1) Normalize the data and account for confounding variables; 2) find if there is a functional scale more optimal for classification of the problem at hand; 3) Evaluate the performance of the retained pipeline for in a multi-scale analysis and assess if a boost in performance can be achieved by combining multiple functional scales using a variation of the bagging algorithm; 4) and finality implement and use a margin optimization algorithm for feature selection applied to functional neuro-imaging data.
+The objectives of the projects are the following: 1) Normalize the data and account for confounding variables; 2) find if there is a functional scale more optimal for classification of the problem at hand; 3) Evaluate the performance of the retained pipeline in a multiscale analysis and assess if a boost in performance can be achieved by combining multiple functional scales using a variation of the bagging algorithm; 4) and finality implement and use a margin optimization algorithm for feature selection applied to functional neuro-imaging data.
 
 \subsection{Public code and data}
 The code used in this experiment is available on a 
-GitHub repository at the following URL: \url{https://github.com/cdansereau/vision_or/code_project2}. A IPython Notebook is also provided with all of the figure generation scripts.
+GitHub repository at the following URL\footnote{\url{https://github.com/cdansereau/vision_or/tree/master/code_project2}}. A IPython Notebook is also provided with all of the figure generation scripts. The functional imaging data is publicly available on the NITRC web site\footnote{\url{http://fcon_1000.projects.nitrc.org/indi/retro/cobre.html}}.
 
 
 % needed in second column of first page if using \IEEEpubid
@@ -714,21 +714,21 @@ GitHub repository at the following URL: \url{https://github.com/cdansereau/visio
 
 
 \section{Method}
-The project was realized in python with the following libraries: scipy \cite{scipy}, scikit-learn \cite{scikitlearn} and matplotlib \cite{matplotlib}.
+The project was realized in python with mainly the following libraries: scipy \cite{scipy}, scikit-learn \cite{scikitlearn} and matplotlib \cite{matplotlib}.
 
 \subsection{Dataset}
-The dataset used in this paper is the COBRE (The Center for Biomedical Research Excellence) dataset from the indi initiative. It consist of raw anatomical and functional MR data from 72 patients with Schizophrenia and 75 healthy controls (ages ranging from 18 to 65 in each group). All subjects were screened and excluded if they had; history of neurological disorder, history of mental retardation, history of severe head trauma with more than 5 minutes loss of consciousness, history of substance abuse or dependence within the last 12 months. Diagnostic information was collected using the Structured Clinical Interview used for DSM Disorders (SCID).
+The dataset used in this paper is the COBRE (The Center for Biomedical Research Excellence) dataset part of the INDI initiative. It consist of raw anatomical and functional MR data from 72 patients with Schizophrenia and 75 healthy controls (ages ranging from 18 to 65 in each group). All subjects were screened and excluded if they had; history of neurological disorder, history of mental retardation, history of severe head trauma with more than 5 minutes loss of consciousness, history of substance abuse or dependence within the last 12 months. Diagnostic information was collected using the Structured Clinical Interview used for DSM Disorders (SCID).
 
-A multi-echo MPRAGE (MEMPR) sequence was used with the following parameters: TR/TE/TI = 2530/[1.64, 3.5, 5.36, 7.22, 9.08]/900 ms, flip angle = 7°, FOV = 256x256 mm, Slab thickness = 176 mm, Matrix = 256x256x176, Voxel size =1x1x1 mm, Number of echos = 5, Pixel bandwidth =650 Hz, Total scan time = 6 min. With 5 echoes, the TR, TI and time to encode partitions for the MEMPR are similar to that of a conventional MPRAGE, resulting in similar GM/WM/CSF contrast.
+A multi-echo MPRAGE (MEMPR) sequence was used with the following parameters: TR/TE/TI = 2530/[1.64, 3.5, 5.36, 7.22, 9.08]/900 ms, flip angle = 7°, FOV = 256x256 mm, Slab thickness = 176 mm, Matrix = 256x256x176, Voxel size = 1x1x1 mm, Number of echos = 5, Pixel bandwidth = 650 Hz, Total scan time = 6 min. With 5 echoes, the TR, TI and time to encode partitions for the MEMPR are similar to that of a conventional MPRAGE, resulting in similar GM/WM/CSF contrast.
 
-Rest data was collected with single-shot full k-space echo-planar imaging (EPI) with ramp sampling correction using the intercomissural line (AC-PC) as a reference (TR: 2 s, TE: 29 ms, matrix size: 64x64, 32 slices, voxel size: 3x3x4 mm3).
+Resting state data was collected with single-shot full k-space echo-planar imaging (EPI) with ramp sampling correction using the intercomissural line (AC-PC) as a reference (TR: 2 s, TE: 29 ms, matrix size: 64x64, 32 slices, voxel size: 3x3x4 mm3).
 
-Phenotypic data available for every participant: gender, age, handedness and diagnostic information (control subject of patient with Schizophrenia).
-An official description of the data and a publicly available version of the dataset is available on the NITRC \footnote{\url{http://fcon_1000.projects.nitrc.org/indi/retro/cobre.html}} website.
+Phenotypic data available for every participant: gender, age, handedness and diagnostic information (control subject and patient with Schizophrenia).
+An official description of the data and a publicly available version of the dataset is available on the NITRC website \footnote{\url{http://fcon_1000.projects.nitrc.org/indi/retro/cobre.html}}.
 
 
 \subsection{Preprocessing and feature extraction}
-The datasets were analysed using the NeuroImaging Analysis Kit (NIAK\footnote{\url{http://www.nitrc.org/projects/niak/}}) version 0.12.14, under CentOS version 6.3 with Octave\footnote{\url{http://gnu.octave.org}} version 3.8.1 and the Minc toolkit\footnote{\url{http://www.bic.mni.mcgill.ca/ServicesSoftware/ServicesSoftwareMincToolKit}} version 0.3.18. Analyses were executed in parallel on the "Mammouth" supercomputer\footnote{\url{http://www.calculquebec.ca/index.php/en/resources/compute-servers/mammouth-parallele-ii}}, using the pipeline system for Octave and Matlab \cite{Bellec2010}, version 1.0.2. Brain map visualizations were created using MRICron software \cite{Rorden2007}. Each fMRI dataset was corrected of inter-slice difference in acquisition time and the parameters of a rigid-body motion was estimated for each time frame. Rigid-body motion was estimated within as well as between runs, using the median volume of the first run as a target. The median volume of one selected fMRI run for each subject was coregistered with a T1 individual scan using Minctracc \cite{Collins1998}, which was itself non-linearly transformed to the Montreal Neurological Institute (MNI) template \cite{Fonov2011} using the CIVET pipeline \cite{Zijdenbos2002}. The MNI symmetric template was generated from the ICBM152 sample of 152 young adults, after 40 iterations of non-linear coregistration. The rigid-body transform, fMRI-to-T1 transform and T1-to-stereotaxic transform were all combined, and the functional volumes were resampled in the MNI space at a 3 mm isotropic resolution. The a censoring method described in \cite{Power2012} called "scrubbing" was used to remove the volumes with excessive motion using a cut-off value of $FD\geq0.5$. A minimum number of 50 unscrubbed volumes per run, corresponding to $\sim 125$ s of acquisition for a TR of 2.5 seconds, was then required for further analysis. The following nuisance parameters were regressed out from the time series at each voxel: slow time drifts (basis of discrete cosines with a 0.01 Hz high-pass cut-off), average signals in conservative masks of the white matter and the lateral ventricles as well as the first principal components (95\% energy) of the six rigid-body motion parameters and their squares \cite{Lund2006},\cite{Giove2009}. The fMRI volumes were finally spatially smoothed with a 6 mm isotropic Gaussian blurring kernel. 
+The datasets were analysed using the NeuroImaging Analysis Kit (NIAK\footnote{\url{http://www.nitrc.org/projects/niak/}}) version 0.12.14, under CentOS version 6.3 with Octave\footnote{\url{http://gnu.octave.org}} version 3.8.1 and the Minc toolkit\footnote{\url{http://www.bic.mni.mcgill.ca/ServicesSoftware/ServicesSoftwareMincToolKit}} version 0.3.18. Analyses were executed in parallel on the "Mammouth" supercomputer\footnote{\url{http://www.calculquebec.ca/index.php/en/resources/compute-servers/mammouth-parallele-ii}}, using the pipeline system for Octave and Matlab \cite{Bellec2010}, version 1.0.2. Each fMRI dataset was corrected of inter-slice difference in acquisition time and the parameters of a rigid-body motion was estimated for each time frame. Rigid-body motion was estimated within as well as between runs, using the median volume of the first run as a target. The median volume of one selected fMRI run for each subject was coregistered with a T1 individual scan using Minctracc \cite{Collins1998}, which was itself non-linearly transformed to the Montreal Neurological Institute (MNI) template \cite{Fonov2011} using the CIVET pipeline \cite{Zijdenbos2002}. The MNI symmetric template was generated from the ICBM152 sample of 152 young adults, after 40 iterations of non-linear coregistration. The rigid-body transform, fMRI-to-T1 transform and T1-to-stereotaxic transform were all combined, and the functional volumes were resampled in the MNI space at a 3 mm isotropic resolution. A censoring method described in \cite{Power2012} called "scrubbing" was used to remove the volumes with excessive motion using a cut-off value of $FD\geq0.5$. A minimum number of 50 unscrubbed volumes per run, corresponding to $\sim 125$ s of acquisition for a TR of 2.5 seconds, was then required for further analysis. The following nuisance parameters were regressed out from the time series at each voxel: slow time drifts (basis of discrete cosines with a 0.01 Hz high-pass cut-off), average signals in conservative masks of the white matter and the lateral ventricles as well as the first principal components (95\% energy) of the six rigid-body motion parameters and their squares \cite{Lund2006},\cite{Giove2009}. The fMRI volumes were finally spatially smoothed with a 6 mm isotropic Gaussian blurring kernel. 
 
 Functional connectivity matrices were obtained from 9 scales using a functional template based on an independent dataset of $\sim 200$ subjects form the 1000 functional connectome project (Cambridge dataset). The 9 scales were obtain using the BASC pipeline \cite{Bellec2010a} which is a unsupervised bootstrap clustering procedure for automatic detection of functional scales based on a stability criteria. resulting in 9 partitions of the brain in 7, 12, 20, 36, 64, 122, 197, 325, 444 networks see Figure \ref{fig_connectomes3x3} for an example of the the resulting connectome of one subject.
 
@@ -741,31 +741,31 @@ Functional connectivity matrices were obtained from 9 scales using a functional 
 
 \subsection{Calibrating the problem}
 
-Has a first step we need to assess the difficulty of the classification task at hand and to do so we are throwing our problem to a simple off the shelf model with the default parameter. This will define the complexity of the problem. In our case we have used scales 64 which will give us a good reference point in term of the problem complexity. The initial classifier model used was a linear SVM with parameter fixed to $C=1$ (the default value). In all the subsequent analysis we are performing a stratified 10-fold cross-validation and include a parameter in the SVM classifier to account for the unbalance dataset by automatically re-weight each class by the inverse of its frequency.
+As a first step we need to assess the difficulty of the classification task at hand and to do so we are throwing our problem to a simple off the shelf model with the default parameters. This will define the complexity of the problem. In our case we have used scales 64 which will give us a good reference point in term of the problem complexity. The initial classifier model used was a linear SVM with parameter fixed to $C=1$ (the default value). In all the subsequent analysis we are performing a stratified 10-fold cross-validation and include a parameter in the SVM classifier to account for the unbalance dataset by automatically re-weight each class by the inverse of its frequency.
 
-The next step is to find the most adapted hyper-parameters (C and/or Gamma if using Gaussian kernel) for our classification problem we choose to use a grid search approach. The grid search parametrised as follow for C ($10^-2$ to $10^3$) and for Gamma ($10^-5$ to $10^1$) The grid search and the final classification were evaluated using a stratified cross-validation due to the unbalanced number of examples available for each class.
+The next step is to find the most adapted hyper-parameters (C and Gamma if using Gaussian kernel) for our classification problem we choose to use a grid search approach. The grid search was parametrised as follow for C ($10^-2$ to $10^3$) and for Gamma ($10^-5$ to $10^1$).
 
 
 \subsection{Preprocessing and confounds regression}
 
-SVM is sensitive to not normalized data we therefore normalize the features of each subject to zero mean and unit variance. Since some bias can be introduce by confounding factors we account for them by regressing the age and gender contribution based on the training set.
+SVM are not scale invariant it is therefore very important to apply normalization on the data. We therefore normalize the connectivity features of each subject to zero mean and unit variance. Since some bias can be introduce by confounding factors we account for them by regressing the age and gender contribution based on the training set.
 
 
 \subsection{Optimal functional scale}
 The fact that we are looking at various level of data abstraction due to the clustering process of BASC in functional scales, we may be more sensitive at some particular scale than other for a given pathology. We have therefore tested the model for each of the 9 scales.
 
 \subsection{Multiscale bagging predictions}
-The idea in this case was to combine the vote of the classifier at each scale using a bagging approach. This ensemble approach combine the predictor of each scale in a bagging procedure as illustrated in Figure \ref{fig_bagging_multiscale}. We simple take a majority vote from all the classifier. Contrary to most ensemble methods this case may be sensitive to scale that do not have sufficient information to yield a good prediction we therefore took a subset of the scales based on the individual performance obtain in Figure \ref{fig_scale_svm}.
+The idea in this case was to combine the votes of the classifier at each scale using a bagging approach. This ensemble approach combine the predictor of each scale in a bagging procedure as illustrated in Figure \ref{fig_bagging_multiscale}. We simply take a majority vote from all the classifiers. Contrary to most ensemble methods this variant may be sensitive to the choice of the scales, particularly scales that do not have sufficient information to yield a good prediction. We therefore took a subset of the scales based on the individual performance obtain in Figure \ref{fig_scale_svm}.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=8cm]{bagging_multiscale.png}
-\caption{Pipeline of the modified bagging procedure using multi-scale functional connectomes.}
+\caption{Pipeline of the modified bagging procedure using multiscale functional connectomes.}
 \label{fig_bagging_multiscale}
 \end{figure}
 
 \subsection{I-Relief margin optimization}
-\cite{Gilad-bachrach2004} describe feature selection as "the task of choosing a small set out of a given set of features that capture the relevant properties of the data". In our supervised classification problems the relevance is determined by the labels on the training data. The choice of the features is therefore essential to obtain a compact and accurate classifier. When using an SVM classifier an intuitive question may arise regarding the objective of a support vector machine,  it attempt to find the hyperplane that maximize the margin between two classes in a binary task and we can hypothesis that it may exist a subset of feature that optimally discriminate the two classes. If such a subset exist it would 1) be very informative in term of the clinical interpretation and 2) it would potentially require less support vectors and therefore less examples. In order to measure the quality of sets of features a greedy algorithm proposed by \cite{Gilad-bachrach2004} and illustrated in Algorithm \ref{algo_gflip} do iteratively a search of the optimal set of feature by adding and/or removing a feature to/from the subset.
+Gilad-bachrach and colleagues \cite{Gilad-bachrach2004} describe feature selection as "the task of choosing a small set out of a given set of features that capture the relevant properties of the data". In our supervised classification problems the relevance is determined by the labels on the training data. The choice of the features is therefore essential to obtain a compact and accurate classifier. When using an SVM classifier an intuitive question may arise regarding the objective of a support vector machine,  it attempt to find the hyperplane that maximize the margin between two classes in a binary task and we can hypothesis that it may exist a subset of feature that optimally discriminate the two classes. If such a subset exist it would 1) be very informative in term of the clinical interpretation and 2) it would potentially require less support vectors and therefore less examples. In order to measure the quality of sets of features a greedy algorithm proposed by \cite{Gilad-bachrach2004} and illustrated in Algorithm \ref{algo_gflip} do iteratively a search of the optimal set of feature by adding and/or removing a feature to/from the subset.
 
 \begin{algorithm}
 \caption{Greedy feature flip}
@@ -788,21 +788,21 @@ The idea in this case was to combine the vote of the classifier at each scale us
 \label{algo_gflip}
 \end{algorithm}
 
-Unfortunately the greedy version is not practical for problems with a large feature space like ours we therefore need an alternative. To our knowledge two papers have proposed an online iterative algorithm \cite{Gilad-bachrach2004} and \cite{Sun2007} that aim at maximizing the margin. We have used an implementation of I-Relief from the package \cite{Hanke2009} originally proposed by \cite{Sun2007} in order to evaluate the potential of this technique.
+Unfortunately the greedy version is not practical for problems with a large feature space like ours (the complexity grow square with the number of features), we therefore need an alternative for testing. To our knowledge two papers have proposed an online iterative algorithm \cite{Gilad-bachrach2004} and \cite{Sun2007} that aim at maximizing the margin and grow linearly with the number of features. We have used an implementation of I-Relief from the package \cite{Hanke2009} originally proposed by \cite{Sun2007} in order to evaluate the potential of this technique.
 
-This procedure give use a weight for each feature we then select the feature with the largest weights. since we do not know the number of features to select we propose to search for the best set based on a nested cross-validation with the criteria to select the best based on how much there weight diverge from the average weight. We search on an standard deviation range of $\alpha\in{0...2.75}$ with a step of 0.25. The threshold that we will use to to include all the features that obtained a weight greater or equal to $W_{threshold}$ is defined as $W_{threshold} = W_{std}*\alpha+\overline{\rm W}$.
+This procedure give use a weight for each feature we then select the feature with the largest weights. since we do not know the number of features to select we propose to search for the best set based on a nested cross-validation with the criteria to select the best $W_{threshold}$ based on how much there weight diverge from the average weight. We search on a range of standard deviation $\alpha\in\{0,...,2.75\}$ with a step of $0.25$. The threshold that we will use to to include all the features that obtained a weight greater or equal to $W_{threshold}$ is defined as $W_{threshold} = W_{std}*\alpha+\overline{\rm W}$.
 
 
 \section{Results}
 
 \subsection{Calibrating the problem}
 
- The figure \ref{fig_calib_svm} show the performance of the off the shelf model and we obtained 64.53\% with an AUC of 0.70.
+ The Figure \ref{fig_calib_svm} show the performance of our off the shelf model and who obtained 64.53\% with an AUC of 0.70.
  
 \begin{figure}[h]
 \centering
 \includegraphics[width=8cm]{svc_linear_calibration_scale64x64.png}
-\caption{Calibration of the classification task: Receiver operating characteristic (ROC) curve of the 10 fold cross validation with the average of ROC curve. The legend show the respective AUC (area under the curve) of each fold and the average AUC. The accuracy obtained was 64.53\%.}
+\caption{Calibration of the classification task: Receiver operating characteristic (ROC) curve of the 10 fold cross validation with the average of ROC curve. The legend show the respective AUC (area under the curve) of each fold and the average AUC. The classifier accuracy obtained was 64.53\%.}
 \label{fig_calib_svm}
 \end{figure}
 
@@ -813,13 +813,13 @@ This procedure give use a weight for each feature we then select the feature wit
 
 %We were able to achieve an accuracy of 90\% (+/- 0.18) estimated with a 10 fold cross-validation with stratified test and validation sets. Figure \ref{fig_classif} show an example of the classification in a scene with 3 moving objects 2 pedestrian (in red) and one car (in yellow).
 
-When we combine the regression of confounds (age and gender) with the normalization (unit variance and zero mean for the connectivity of each subject ) we have an accuracy of 67.07\% and an AUC of 0.75, Figure \ref{fig_svc_norm_cnotopt} show the average ROC curve from the 10-fold cross-validation.
+When we combined the regression of confounds (age and gender) with the normalization (unit variance and zero mean for the connectivity of each subject ) we obtained an accuracy of 67.07\% and an AUC of 0.75, Figure \ref{fig_svc_norm_cnotopt} show the average ROC curve from the 10-fold cross-validation.
 
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=8cm]{svc_linear_cnotopt_normalized_scale64x64.png}
-\caption{Receiver operating characteristic (ROC) curve of the average 10-fold cross-validation. The legend show the expected AUC (area under the curve) obtained by luck and the average AUC from the classifier. 67.07\% accuracy of the classifier after normalization and regression of the confounding variables.}
+\caption{Receiver operating characteristic (ROC) curve of the average 10-fold cross-validation. The legend show the expected AUC (area under the curve) obtained by luck and the average AUC from the classifier. Classifier obtained 67.07\% accuracy after normalization and regression of the confounding variables.}
 \label{fig_svc_norm_cnotopt}
 \end{figure}
 
@@ -830,7 +830,7 @@ If we combine the confound regression with the normalization (unit variance and 
 \begin{figure}[h]
 \centering
 \includegraphics[width=8cm]{svc_linear_normalized_scale64x64.png}
-\caption{Receiver operating characteristic (ROC) curve of the average 10-fold cross-validation. The legend show the expected AUC (area under the curve) obtained by luck and the average AUC from the classifier. 69.89\% accuracy of the classifier after normalization and regression of the confounding variables and parameter C optimized.}
+\caption{Receiver operating characteristic (ROC) curve of the average 10-fold cross-validation. The legend show the expected AUC (area under the curve) obtained by luck and the average AUC from the classifier. Classifier obtained 69.89\% accuracy after normalization and regression of the confounding variables and parameter C optimized.}
 \label{fig_svc_norm}
 \end{figure}
 
@@ -850,29 +850,28 @@ By selecting the most discriminative scale we where able to achieve a 79.48\% ac
 \begin{figure}[h]
 \centering
 \includegraphics[width=8cm]{svc_linear_normalized_scale197x197.png}
-\caption{Receiver operating characteristic (ROC) curve of the average 10-fold cross-validation. The legend show the expected AUC (area under the curve) obtained by luck and the average AUC from the classifier. 79.48\% accuracy of the classifier using features from functional scale 197 after normalization and regression of the confounding variables and parameter C optimized using grid search.}
+\caption{Receiver operating characteristic (ROC) curve of the average 10-fold cross-validation. The legend show the expected AUC (area under the curve) obtained by luck and the average AUC from the classifier. Classifier obtained 79.48\% accuracy using features from functional scale 197 after normalization and regression of the confounding variables and parameter C optimized using grid search.}
 \label{fig_svc_norm_optimal_scale}
 \end{figure}
 
 \subsection{Multiscale}
 
-Using the 3 scales that individually performed the best (namely scale 122, 197 and 444) we obtained an accuracy of $80.14\%$ std $\pm8.36\%$ and an AUC of 0.82 see Figure \ref{fig_svc_bagging_multiscale} for the ROC curve.
+Using the 3 scales that individually performed the best (namely scale 122, 197 and 444) we obtained an accuracy of $80.14\%$ and an AUC of 0.82 see Figure \ref{fig_svc_bagging_multiscale} for plot of the ROC curve.
 
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=8cm]{svc_linear_multiscale_bagging.png}
-\caption{Receiver operating characteristic (ROC) curve of the average 10-fold cross-validation. The legend show the expected AUC (area under the curve) obtained by luck and the average AUC from the classifier. 80.14\% accuracy of the classifier using multiscale bagging from scale 122, 197, 444; after normalization and regression of the confounding variables and parameter C optimized using grid search.}
+\caption{Receiver operating characteristic (ROC) curve of the average 10-fold cross-validation. The legend show the expected AUC (area under the curve) obtained by luck and the average AUC from the classifier. Classifier obtained 80.14\% accuracy using multiscale bagging from scale 122, 197, 444; after normalization and regression of the confounding variables and parameter C optimized using grid search.}
 \label{fig_svc_bagging_multiscale}
 \end{figure}
 
 \subsection{I-Relief}
 
-We obtained an accuracy of 73.94\% std $\pm7.41\%$ with an AUC of 0.82 for the optimized pipeline with feature selection based on I-Relief with optimal threshold.
+The optimized pipeline with feature selection based on I-Relief using optimal threshold obtained an accuracy of 73.94\% with an AUC of 0.82.
 
 \subsection{Summary}
-Table \ref{tab_results} show the results of the experiment described above.
-
+Table \ref{tab_results} show a summary of the results obtained in the various experiments described above.
 
 \begin{table}[h]
 \begin{tabular}{llll}
@@ -883,26 +882,20 @@ NC SVC linear 64x64                & 67.07          & 11.08         & 0.75      
 Opt NC SVC linear 64x64            & 69.89          & 8.69          & 0.80          \\
 \textbf{Opt NC SVC linear 197x197} & \textbf{79.48} & \textbf{7.50} & \textbf{0.82} \\
 Opt NC SVC rbf 197x197             & 74.61          & 8.75          & 0.80          \\
-\textbf{Opt NC Multiscale bagging} & \textbf{80.14} & \textbf{8.36} & \textbf{0.82} \\
+\textbf{Opt NC multiscale bagging}& \textbf{80.14} & \textbf{8.36} & \textbf{0.82} \\
 Opt NC I-Relief 197x197            & 73.94          & 7.41          & 0.82          \\ \hline
 \end{tabular}
 \label{tab_results}
-\caption{Summary of the performance of each classification pipeline. Acronyms: calib: calibration, NC: normalized and regression of confounds (age and gender), Opt optimisation of the classification parameter using nested 10-fold cross-validation. The multiscale bagging was performed on 3 scales (122, 197 and 444) and I-Relief was perform on the scale 197x197. }
+\caption{Summary of the performance of each classification pipeline. Acronyms: calib: calibration, NC: normalized and regression of confounds (age and gender), Opt: optimisation of the classification parameter using nested 10-fold cross-validation. The multiscale bagging was performed on 3 scales (122, 197 and 444) and I-Relief was perform on the scale 197. }
 \end{table}
 
-\section{Discussion and Conclusion}
+\section{Discussion and conclusion}
 
-A common mistake made when trying to tackle this kind of problem is to do the feature selection before cross-validation using the labels this may lead in an overestimate of our accuracy. This finding may give very good result that will not generalize well as an example we have done this by running our model with the feature selection procedure (I-Relief) in and out of the cross-validation procedure resulting in improved performance when selecting the features outside the cross-validation loop.
+A common mistake made when trying to tackle this kind of problem is to do the feature selection before cross-validation using the labels. This may lead to an overestimate of our accuracy, it may give very good result that will not generalize well. As an example we have performed the same experiment with the feature selection procedure (I-Relief) in and out of the cross-validation loop resulting in improved performance when selecting the features outside the cross-validation loop.
 
-In this study, although not shown in the results section we have tested many other classifier models (SVM with Gaussian kernel, LDA, adaboost, bagging, trees and random forest) none of which perform close to the linear SVM except maybe SVM with Gaussian kernel who obtain 74.61\% accuracy on the best scale (197) using grid search for the optimal parameters. Our hypotheses for the reason why linear SVM work better than more complex classifier is probably due to the fact that the amount of variability in the data make it difficult for higher order classifier to model.  They are more sensitive to outliers and start to focus on noise components that in turn corrupt the classification procedure.
+In this study, although not shown in the results section we have tested many other classifier models (SVM with Gaussian kernel, LDA, Adaboost, Bagging, trees and random forest) none of which perform close to the linear SVM except maybe SVM with Gaussian kernel who obtain 74.61\% accuracy on the best scale (197) using grid search for the optimal parameters. Our hypotheses for the reason why linear SVM work better than more complex classifier may be due to the fact that the amount of variability in the data make it difficult for higher order classifier to model correctly and therefore loose in generalization power. They are more sensitive to outliers and start to focus on noise components that in turn corrupt the classification procedure (a classic case of over-fitting).
 
-We were able to achieve a decent performance of 79.48\% accuracy using a simple model at the appropriate scale and obtain a 80.14\% accuracy using the multiscale bagging approach. Unfortunately the I-Relief procedure that we proposed to reduce the feature space did not yield as good results as we were anticipating. It was in fact performing worse then the optimal scale using a linear SVM. For the case of the bagging multiscale it may be good to use this procedure instead of the single scale since it as a very similar accuracy but may be more versatile when presented with a different pathology. A major advantage is the fact that we do not need to choose the best scale and it use the power of ensemble methods for it's prediction and therefore may perform better than the single scale in some cases. Future work need to be conducted to assess the performance and generalization potential of the leading models to other datasets and pathologies.
-
-%This project introduce us to the various problematic that one can face in the context of vision and tracking. We were able to achieve the three requirements of the project namely 1) the identification of mobile object and there features, 2) the classification of the object in a two class problem (pedestrian or car) and finally 3) the tracking of the objects across the scene. We also made our software able to identify a trajectory and be able to resolve interference due to two objects crossing path.
-%
-%An important note relate to the choice of the features for classification, the images use in this project were taken in winter and are not particularly colourful explaining the performance of the 32x32 gray-scale image as equivalent to the RGB one. Event though this choice is acceptable for this particular dataset it will most likely be more appropriate to use a color version for a classifier that would generalized better in other scenery.
-
-
+We were able to achieve a decent performance of 79.48\% accuracy using a simple model (using the scale with the optimal accuracy) and obtained a 80.14\% accuracy using the multiscale bagging approach. Unfortunately the I-Relief procedure that we proposed to reduce the feature space did not yield as good results as we were anticipating. It was in fact performing worse then the linear SVM using all the features at most of the scales. In the case of the multiscale bagging it may be good to use this procedure instead of the single scale since it as a very similar accuracy but may be more versatile when presented with a different pathology. A major advantage is the fact that we do not need to choose the best scale and it use the power of ensemble methods for it's prediction and therefore may perform better than the single scale in some cases. Future work need to be conducted to assess the performance and generalization potential of the leading models to other datasets and pathologies.
 
 
 % if have a single appendix:

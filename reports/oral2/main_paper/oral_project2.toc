@@ -1,4 +1,6 @@
 \beamer@endinputifotherversion {3.33pt}
 \select@language {french}
-\beamer@sectionintoc {1}{Contexte g\IeC {\'e}n\IeC {\'e}ral}{3}{0}{1}
-\beamer@sectionintoc {2}{Optimisation des \IeC {\'e}tapes de pr\IeC {\'e}traitement}{5}{0}{2}
+\beamer@sectionintoc {1}{Contexte g\IeC {\'e}n\IeC {\'e}ral}{2}{0}{1}
+\beamer@sectionintoc {2}{M\IeC {\'e}thod}{10}{0}{2}
+\beamer@sectionintoc {3}{R\IeC {\'e}sultats}{14}{0}{3}
+\beamer@sectionintoc {4}{Conclusion}{18}{0}{4}

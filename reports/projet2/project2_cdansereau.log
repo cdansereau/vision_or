@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  27 APR 2015 23:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  28 APR 2015 11:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -422,13 +422,17 @@ LaTeX Font Info:    Font shape `OT1/phv/bx/sc' in size <14> not available
 (Font)              Font shape `OT1/phv/b/sc' tried instead on input line 570.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <12> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 617.
+
+Underfull \vbox (badness 4531) has occurred while \output is active []
+
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 622.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 622.
 
-Underfull \hbox (badness 1400) in paragraph at lines 621--623
-\OT1/ppl/m/n/12 pro-vided with all of the fig-ure gen-er-a-tion
+Underfull \hbox (badness 10000) in paragraph at lines 622--622
+[][][][][]$\OT1/ppl/m/n/9 https : / / github . com / cdansereau / vision[]or / 
+tree / master /
  []
 
 [1{/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
@@ -470,18 +474,28 @@ Underfull \hbox (badness 10000) in paragraph at lines 731--732
  []
 
 
-Underfull \hbox (badness 2080) in paragraph at lines 731--732
-\OT1/ppl/m/n/12 rigid-body mo-tion was es-ti-mated for each
+Underfull \hbox (badness 2012) in paragraph at lines 731--732
+\OT1/ppl/m/n/12 of inter-slice dif-fer-ence in ac-qui-si-tion time
  []
 
 
-Underfull \hbox (badness 1490) in paragraph at lines 731--732
-\OT1/ppl/m/n/12 of non-linear coreg-is-tra-tion. The rigid-body
+Underfull \hbox (badness 4608) in paragraph at lines 731--732
+\OT1/ppl/m/n/12 trans-formed to the Mon-treal Neu-ro-log-i-cal
  []
 
 
-Underfull \hbox (badness 1584) in paragraph at lines 731--732
-\OT1/ppl/m/n/12 The a cen-sor-ing method de-scribed in [[]]
+Underfull \hbox (badness 1762) in paragraph at lines 731--732
+\OT1/ppl/m/n/12 pipeline [[]]. The MNI sym-met-ric tem-plate
+ []
+
+
+Underfull \hbox (badness 3128) in paragraph at lines 731--732
+\OT1/ppl/m/n/12 was gen-er-ated from the ICBM152 sam-ple
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 731--732
+\OT1/ppl/m/n/12 non-linear coreg-is-tra-tion. The rigid-body
  []
 
 
@@ -489,35 +503,45 @@ Underfull \hbox (badness 5274) in paragraph at lines 731--732
 \OT1/ppl/m/n/12 The fMRI vol-umes were fi-nally spa-tially
  []
 
-<connectome3x3.png, id=125, 358.33875pt x 242.9075pt>
+[2] <connectome3x3.png, id=152, 358.33875pt x 242.9075pt>
 File: connectome3x3.png Graphic file (type png)
- <use connectome3x3.png>
+
+<use connectome3x3.png>
 Package pdftex.def Info: connectome3x3.png used on input line 737.
 (pdftex.def)             Requested size: 227.62204pt x 154.30013pt.
 
+Underfull \hbox (badness 2142) in paragraph at lines 746--747
+\OT1/ppl/m/n/12 hyper-parameters (C and Gamma if us-ing
+ []
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[2] <bagging_multiscale.png, id=153, 174.8934pt x 179.2296pt>
+<bagging_multiscale.png, id=156, 174.8934pt x 179.2296pt>
 File: bagging_multiscale.png Graphic file (type png)
 
 <use bagging_multiscale.png>
 Package pdftex.def Info: bagging_multiscale.png used on input line 762.
 (pdftex.def)             Requested size: 227.62204pt x 233.26643pt.
- [3 <./connectome3x3.png> <./bagging_multiscale.png>]
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[3 <./connectome3x3.png>]
 Overfull \hbox (12.0pt too wide) detected at line 789
 [][] 
  []
 
-<svc_linear_calibration_scale64x64.png, id=174, 383.4325pt x 525.965pt>
+<svc_linear_calibration_scale64x64.png, id=178, 383.4325pt x 525.965pt>
 File: svc_linear_calibration_scale64x64.png Graphic file (type png)
 
 <use svc_linear_calibration_scale64x64.png>
 Package pdftex.def Info: svc_linear_calibration_scale64x64.png used on input li
 ne 804.
 (pdftex.def)             Requested size: 227.62204pt x 312.24278pt.
- [4 <./svc_linear_calibration_scale64x64.png>]
-<svc_linear_cnotopt_normalized_scale64x64.png, id=202, 383.4325pt x 282.05376pt
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+<svc_linear_cnotopt_normalized_scale64x64.png, id=180, 383.4325pt x 282.05376pt
 >
 File: svc_linear_cnotopt_normalized_scale64x64.png Graphic file (type png)
  <use svc_linear_cnotopt_normalized_scale64x64.png>
@@ -525,7 +549,10 @@ Package pdftex.def Info: svc_linear_cnotopt_normalized_scale64x64.png used on i
 nput line 821.
 (pdftex.def)             Requested size: 227.62204pt x 167.44318pt.
 
-<svc_linear_normalized_scale64x64.png, id=204, 383.4325pt x 282.05376pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<svc_linear_normalized_scale64x64.png, id=182, 383.4325pt x 282.05376pt>
 File: svc_linear_normalized_scale64x64.png Graphic file (type png)
 
 <use svc_linear_normalized_scale64x64.png>
@@ -536,7 +563,7 @@ e 832.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<acc_scale.png, id=205, 383.4325pt x 266.9975pt>
+<acc_scale.png, id=183, 383.4325pt x 266.9975pt>
 File: acc_scale.png Graphic file (type png)
  <use acc_scale.png>
 Package pdftex.def Info: acc_scale.png used on input line 843.
@@ -545,18 +572,18 @@ Package pdftex.def Info: acc_scale.png used on input line 843.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<svc_linear_normalized_scale197x197.png, id=207, 383.4325pt x 282.05376pt>
+<svc_linear_normalized_scale197x197.png, id=185, 383.4325pt x 282.05376pt>
 File: svc_linear_normalized_scale197x197.png Graphic file (type png)
 
 <use svc_linear_normalized_scale197x197.png>
 Package pdftex.def Info: svc_linear_normalized_scale197x197.png used on input l
 ine 852.
 (pdftex.def)             Requested size: 227.62204pt x 167.44318pt.
-
+ [4 <./bagging_multiscale.png>]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<svc_linear_multiscale_bagging.png, id=209, 383.4325pt x 282.05376pt>
+<svc_linear_multiscale_bagging.png, id=215, 383.4325pt x 282.05376pt>
 File: svc_linear_multiscale_bagging.png Graphic file (type png)
 
 <use svc_linear_multiscale_bagging.png>
@@ -570,17 +597,18 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5 <./svc_linear_cnotopt_normalized_scale64x64.png> <./svc_linear_normalized_sc
-ale64x64.png> <./acc_scale.png>]
-Underfull \hbox (badness 1708) in paragraph at lines 899--900
+
+Underfull \vbox (badness 3746) has occurred while \output is active []
+
+ [5 <./svc_linear_calibration_scale64x64.png> <./svc_linear_cnotopt_normalized_
+scale64x64.png> <./svc_linear_normalized_scale64x64.png>] [6 <./acc_scale.png> 
+<./svc_linear_normalized_scale197x197.png> <./svc_linear_multiscale_bagging.png
+>]
+Underfull \hbox (badness 1708) in paragraph at lines 898--899
 \OT1/ppl/m/n/12 mance of 79.48% ac-cu-racy us-ing a sim-ple
  []
 
-[6 <./svc_linear_normalized_scale197x197.png> <./svc_linear_multiscale_bagging.
-png>] (./project2_cdansereau.bbl
-** WARNING: IEEEtran.bst: No hyphenation pattern has been
-** loaded for the language `eng'. Using the pattern for
-** the default language instead.
+(./project2_cdansereau.bbl
 ** WARNING: IEEEtran.bst: No hyphenation pattern has been
 ** loaded for the language `eng'. Using the pattern for
 ** the default language instead.
@@ -591,25 +619,25 @@ png>] (./project2_cdansereau.bbl
 ** loaded for the language `English'. Using the pattern for
 ** the default language instead.
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1045.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1038.
  [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1045.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1038.
  (./project2_cdansereau.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1045.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1045.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1038.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1038.
 
 Package rerunfilecheck Info: File `project2_cdansereau.out' has not changed.
-(rerunfilecheck)             Checksum: D7FEF04F0E5DBB72C14B1F6593E16E31;1295.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1045.
+(rerunfilecheck)             Checksum: E57119943F78ECE9E851074FEDD30978;1295.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1038.
  ) 
 Here is how much of TeX's memory you used:
- 8272 strings out of 493117
- 127808 string characters out of 6135433
- 238987 words of memory out of 5000000
- 11582 multiletter control sequences out of 15000+600000
+ 8275 strings out of 493117
+ 127840 string characters out of 6135433
+ 241006 words of memory out of 5000000
+ 11583 multiletter control sequences out of 15000+600000
  45375 words of font info for 95 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 36i,7n,38p,2452b,727s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,7n,38p,2368b,727s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/te
 xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texl
@@ -624,10 +652,10 @@ s/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1
 /urw/palatino/uplr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/pa
 latino/uplri8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/zapfding
 /uzdr.pfb>
-Output written on project2_cdansereau.pdf (7 pages, 344753 bytes).
+Output written on project2_cdansereau.pdf (7 pages, 345200 bytes).
 PDF statistics:
- 316 PDF objects out of 1000 (max. 8388607)
- 275 compressed objects within 3 object streams
- 74 named destinations out of 1000 (max. 500000)
+ 321 PDF objects out of 1000 (max. 8388607)
+ 280 compressed objects within 3 object streams
+ 76 named destinations out of 1000 (max. 500000)
  201 words of extra memory for PDF output out of 10000 (max. 10000000)
 
